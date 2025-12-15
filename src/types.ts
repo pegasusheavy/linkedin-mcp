@@ -123,6 +123,9 @@ export type LinkedInLanguage = z.infer<typeof LinkedInLanguageSchema>;
 // Configuration types
 export interface ServerConfig {
   linkedInAccessToken?: string;
+  linkedInClientId?: string;
+  linkedInClientSecret?: string;
+  linkedInRedirectUri?: string;
   port?: number;
   logLevel?: 'debug' | 'info' | 'warn' | 'error';
 }

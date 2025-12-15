@@ -47,19 +47,39 @@ describe('Config', () => {
   });
 
   describe('validateConfig', () => {
-    it('should throw error when LINKEDIN_ACCESS_TOKEN is missing', () => {
+    it('should throw error when neither access token nor OAuth credentials are provided', () => {
       const config = getConfig();
       delete config.linkedInAccessToken;
+      delete config.linkedInClientId;
+      delete config.linkedInClientSecret;
 
-      expect(() => validateConfig(config)).toThrow('LINKEDIN_ACCESS_TOKEN is required');
+      expect(() => validateConfig(config)).toThrow('Either LINKEDIN_ACCESS_TOKEN or (LINKEDIN_CLIENT_ID + LINKEDIN_CLIENT_SECRET) is required');
     });
 
-    it('should not throw error for valid config', () => {
+    it('should not throw error for valid config with access token', () => {
       const config = {
         linkedInAccessToken: 'test-token',
       };
 
       expect(() => validateConfig(config)).not.toThrow();
+    });
+
+    it('should not throw error for valid config with OAuth credentials', () => {
+      const config = {
+        linkedInClientId: 'test-client-id',
+        linkedInClientSecret: 'test-client-secret',
+        linkedInRedirectUri: 'http://localhost:3000/callback',
+      };
+
+      expect(() => validateConfig(config)).not.toThrow();
+    });
+
+    it('should throw error if only client ID is provided', () => {
+      const config = {
+        linkedInClientId: 'test-client-id',
+      };
+
+      expect(() => validateConfig(config)).toThrow();
     });
   });
 });

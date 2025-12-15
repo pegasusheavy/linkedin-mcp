@@ -12,7 +12,7 @@ export class LinkedInMCPServer {
 
   constructor(config: ServerConfig) {
     this.logger = new Logger(config.logLevel);
-    
+
     // Initialize McpServer
     this.server = new McpServer(
       {

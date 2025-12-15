@@ -54,30 +54,103 @@ yarn add @pegasusheavy/linkedin-mcp
 
 ## 🔧 Configuration
 
+### Authentication Setup
+
+This server requires LinkedIn API access. You have two authentication options:
+
+#### Option 1: Automatic OAuth Flow (Recommended) 🚀
+
+The server automatically handles OAuth authentication when you don't have an access token:
+
+1. **Create a LinkedIn App**
+   - Go to [LinkedIn Developers](https://www.linkedin.com/developers/)
+   - Click "Create App" and fill in the required information
+   - Note your **Client ID** and **Client Secret**
+
+2. **Configure OAuth Settings**
+   - In your app settings, go to "Auth" tab
+   - Add `http://localhost:3000/callback` to "Authorized redirect URLs for your app"
+   - Request the following **Products**:
+     - Sign In with LinkedIn using OpenID Connect
+     - Share on LinkedIn
+     - Advertising API (for analytics)
+
+3. **Set Up Environment**
+   ```bash
+   # Copy the example environment file
+   cp .env.example .env
+   
+   # Edit .env and add your LinkedIn app credentials:
+   LINKEDIN_CLIENT_ID=your_client_id_here
+   LINKEDIN_CLIENT_SECRET=your_client_secret_here
+   ```
+
+4. **Start the Server**
+   ```bash
+   # The server will automatically start the OAuth flow
+   pnpm dev
+   ```
+   
+   When you start the server without an access token:
+   - The server automatically opens your browser to LinkedIn's authorization page
+   - You authorize the application
+   - The server receives the token and caches it securely in `~/.linkedin-mcp-tokens.json`
+   - Your token is automatically refreshed when it expires
+   - The MCP server starts normally
+
+5. **Use with Your MCP Client**
+   - Configure your MCP client (Claude Desktop, Cursor, etc.)
+   - The first time it runs, you'll authenticate once via browser
+   - Subsequent runs use the cached token automatically
+   - Tokens are refreshed automatically when they expire
+
+#### Option 2: Manual Access Token
+
+If you already have an access token or prefer manual setup:
+
+1. Obtain a LinkedIn access token through the [OAuth 2.0 flow](https://learn.microsoft.com/en-us/linkedin/shared/authentication/authorization-code-flow)
+2. Add it to your `.env` file:
+   ```bash
+   LINKEDIN_ACCESS_TOKEN=your_token_here
+   ```
+
 ### Environment Variables
 
-Create a `.env` file in your project root:
+Choose one of these configurations:
 
+**For Automatic OAuth (Recommended):**
 ```bash
-# Required
-LINKEDIN_ACCESS_TOKEN=your_linkedin_access_token
+# LinkedIn OAuth Credentials - Server handles authentication automatically
+LINKEDIN_CLIENT_ID=your_client_id
+LINKEDIN_CLIENT_SECRET=your_client_secret
+LINKEDIN_REDIRECT_URI=http://localhost:3000/callback  # optional
 
 # Optional - Server Configuration
-PORT=3000
 LOG_LEVEL=info  # debug, info, warn, error
 ```
 
-### Getting LinkedIn Access Token
+**For Manual Token:**
+```bash
+# LinkedIn API Authentication - Use existing token
+LINKEDIN_ACCESS_TOKEN=your_linkedin_access_token
 
-1. Go to [LinkedIn Developers](https://www.linkedin.com/developers/)
-2. Create a new app or use an existing one
-3. Request access to required APIs
-4. Generate an access token with appropriate scopes:
-   - `r_liteprofile` - Read profile information
-   - `r_emailaddress` - Read email address
-   - `w_member_social` - Create and modify posts
-   - `r_organization_social` - Read organization content
-   - **Profile Edit Permissions** - Required for profile management features
+# Optional - Server Configuration
+LOG_LEVEL=info  # debug, info, warn, error
+```
+
+### Token Management
+
+✨ **Automatic Features:**
+- **Token Caching** - Tokens are securely cached in your home directory
+- **Auto-Refresh** - Expired tokens are automatically refreshed
+- **Secure Storage** - Token file has restrictive permissions (600)
+- **Zero Maintenance** - Authenticate once, use forever (until revoked)
+
+⚠️ **Security Notes:**
+- **Keep credentials secure** - Never commit `.env` or token cache to version control
+- **Token location** - Cached at `~/.linkedin-mcp-tokens.json` with secure permissions
+- **One token per user** - Each person using the server gets their own cached token
+- **Manual token** - If using LINKEDIN_ACCESS_TOKEN, you handle expiration manually
 
 ## 🎯 Usage
 
