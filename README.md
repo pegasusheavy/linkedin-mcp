@@ -1,51 +1,52 @@
 # LinkedIn MCP Server
 
-[![CI](https://github.com/yourusername/linkedin-mcp-server/workflows/CI/badge.svg)](https://github.com/yourusername/linkedin-mcp-server/actions)
-[![codecov](https://codecov.io/gh/yourusername/linkedin-mcp-server/branch/main/graph/badge.svg)](https://codecov.io/gh/yourusername/linkedin-mcp-server)
-[![npm version](https://badge.fury.io/js/linkedin-mcp-server.svg)](https://badge.fury.io/js/linkedin-mcp-server)
+[![CI](https://github.com/pegasusheavy/linkedin-mcp/workflows/CI/badge.svg)](https://github.com/pegasusheavy/linkedin-mcp/actions)
+[![npm version](https://badge.fury.io/js/@pegasusheavy%2Flinkedin-mcp.svg)](https://www.npmjs.com/package/@pegasusheavy/linkedin-mcp)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-A comprehensive Model Context Protocol (MCP) server that provides seamless integration between LinkedIn and AI applications, with optional Notion database synchronization.
+A comprehensive Model Context Protocol (MCP) server for LinkedIn API integration. Manage your LinkedIn profile, posts, connections, skills, education, certifications, and more through AI agents like Claude, ChatGPT, and other LLM applications.
 
 ## 🚀 Features
 
-- **LinkedIn Integration**
-  - Fetch user profile information
-  - Retrieve recent posts and engagement metrics
-  - Get connections list
-  - Share new posts
-  - Search for people on LinkedIn
+### 📱 Social Features
+- **Profile Management**: Fetch and view your LinkedIn profile
+- **Posts & Engagement**: Retrieve posts with engagement metrics, share new content
+- **Connections**: Get and manage your professional network
+- **People Search**: Find professionals by keywords
 
-- **Notion Integration** (Optional)
-  - Create pages in Notion database
-  - Query and filter Notion pages
-  - Sync LinkedIn profiles to Notion
-  - Associate LinkedIn data with Notion pages
+### 📝 Profile Management (18 Tools Total)
+- **Skills**: Add and remove skills from your profile
+- **Work Experience**: Add, update, and delete positions
+- **Education**: Manage educational background
+- **Certifications**: Add and remove professional certifications
+- **Publications**: Manage your published works
+- **Languages**: Add language proficiency to your profile
 
-- **Developer Experience**
-  - Full TypeScript support with strict type checking
-  - Comprehensive unit tests (90%+ coverage)
-  - Extensive logging and error handling
-  - Zod schema validation
-  - Modern async/await patterns
+### 💻 Developer Experience
+- Full TypeScript support with strict type checking
+- Comprehensive unit tests (99%+ coverage, 45 tests)
+- Zod schema validation for type safety
+- Modern async/await patterns
+- Extensive logging and error handling
+- Latest dependencies (Vitest 4, Zod 4, etc.)
 
 ## 📋 Prerequisites
 
 - Node.js >= 18.0.0
 - LinkedIn API access token
-- (Optional) Notion API key and database ID
+- pnpm, npm, or yarn
 
 ## 📦 Installation
 
 ```bash
 # Using pnpm (recommended)
-pnpm install linkedin-mcp-server
+pnpm install @pegasusheavy/linkedin-mcp
 
 # Using npm
-npm install linkedin-mcp-server
+npm install @pegasusheavy/linkedin-mcp
 
 # Using yarn
-yarn add linkedin-mcp-server
+yarn add @pegasusheavy/linkedin-mcp
 ```
 
 ## 🔧 Configuration
@@ -58,10 +59,6 @@ Create a `.env` file in your project root:
 # Required
 LINKEDIN_ACCESS_TOKEN=your_linkedin_access_token
 
-# Optional - Notion Integration
-NOTION_API_KEY=your_notion_api_key
-NOTION_DATABASE_ID=your_notion_database_id
-
 # Optional - Server Configuration
 PORT=3000
 LOG_LEVEL=info  # debug, info, warn, error
@@ -71,33 +68,21 @@ LOG_LEVEL=info  # debug, info, warn, error
 
 1. Go to [LinkedIn Developers](https://www.linkedin.com/developers/)
 2. Create a new app or use an existing one
-3. Request access to required APIs (Profile, Posts, Connections)
+3. Request access to required APIs
 4. Generate an access token with appropriate scopes:
    - `r_liteprofile` - Read profile information
    - `r_emailaddress` - Read email address
    - `w_member_social` - Create and modify posts
    - `r_organization_social` - Read organization content
-
-### Setting Up Notion Integration
-
-1. Go to [Notion Integrations](https://www.notion.so/my-integrations)
-2. Create a new integration and get the API key
-3. Create a database in Notion with the following properties:
-   - `Name` (Title)
-   - `LinkedIn ID` (Text)
-   - `LinkedIn URL` (URL)
-   - `Created At` (Date)
-   - `Tags` (Multi-select)
-4. Share the database with your integration
-5. Copy the database ID from the URL
+   - **Profile Edit Permissions** - Required for profile management features
 
 ## 🎯 Usage
 
 ### As a Standalone Server
 
 ```typescript
-import { LinkedInMCPServer } from 'linkedin-mcp-server';
-import { getConfig, validateConfig } from 'linkedin-mcp-server/config';
+import { LinkedInMCPServer } from '@pegasusheavy/linkedin-mcp';
+import { getConfig, validateConfig } from '@pegasusheavy/linkedin-mcp/config';
 
 const config = getConfig();
 validateConfig(config);
@@ -142,15 +127,15 @@ const result = await client.callTool({
 linkedin-mcp
 
 # With environment variables
-LINKEDIN_ACCESS_TOKEN=xxx NOTION_API_KEY=xxx linkedin-mcp
+LINKEDIN_ACCESS_TOKEN=xxx linkedin-mcp
 ```
 
 ## 🛠️ Available Tools
 
-### LinkedIn Tools
+### Social & Content Tools
 
 #### `get_linkedin_profile`
-Get the authenticated user's LinkedIn profile information.
+Get your LinkedIn profile information.
 
 **Arguments:** None
 
@@ -166,26 +151,22 @@ Get the authenticated user's LinkedIn profile information.
 ```
 
 #### `get_linkedin_posts`
-Get the user's recent LinkedIn posts.
+Get your recent LinkedIn posts with engagement metrics.
 
 **Arguments:**
-- `limit` (number, optional): Maximum number of posts to retrieve (default: 10)
-
-**Returns:** Array of post objects with engagement metrics
+- `limit` (number, optional): Maximum number of posts (default: 10)
 
 #### `get_linkedin_connections`
-Get the user's LinkedIn connections.
+Get your LinkedIn connections.
 
 **Arguments:**
-- `limit` (number, optional): Maximum number of connections (default: 50)
-
-**Returns:** Array of connection objects
+- `limit` (number, optional): Maximum connections (default: 50)
 
 #### `share_linkedin_post`
 Share a new post on LinkedIn.
 
 **Arguments:**
-- `text` (string, required): The content of the post
+- `text` (string, required): The post content
 
 **Returns:**
 ```json
@@ -202,37 +183,82 @@ Search for people on LinkedIn.
 - `keywords` (string, required): Search keywords
 - `limit` (number, optional): Maximum results (default: 10)
 
-**Returns:** Array of people matching the search
+### Profile Management Tools
 
-### Notion Tools
+#### Skills
 
-*(Available when Notion integration is configured)*
+**`add_linkedin_skill`** - Add a skill to your profile
+- `name` (string, required): Skill name
 
-#### `create_notion_page`
-Create a new page in the configured Notion database.
+**`delete_linkedin_skill`** - Remove a skill
+- `skillId` (string, required): Skill ID to delete
 
-**Arguments:**
-- `title` (string, required): Page title
-- `linkedInId` (string, optional): LinkedIn ID to associate
-- `linkedInUrl` (string, optional): LinkedIn URL
-- `tags` (string[], optional): Tags for the page
+#### Work Experience
 
-**Returns:** Created page ID and URL
+**`add_linkedin_position`** - Add a position
+- `title` (string, required): Job title
+- `company` (string, required): Company name
+- `startYear` (number, required): Start year
+- `startMonth` (number, optional): Start month (1-12)
+- `endYear` (number, optional): End year
+- `endMonth` (number, optional): End month
+- `description` (string, optional): Job description
+- `current` (boolean, optional): Is current position?
 
-#### `query_notion_pages`
-Query pages from the Notion database.
+**`update_linkedin_position`** - Update an existing position
+- `positionId` (string, required): Position ID
+- All other fields optional
 
-**Arguments:**
-- `linkedInId` (string, optional): Filter by LinkedIn ID
+**`delete_linkedin_position`** - Remove a position
+- `positionId` (string, required): Position ID
 
-**Returns:** Array of matching pages
+#### Education
 
-#### `save_linkedin_profile_to_notion`
-Save the user's LinkedIn profile to Notion.
+**`add_linkedin_education`** - Add education
+- `schoolName` (string, required): School name
+- `degree` (string, optional): Degree name
+- `fieldOfStudy` (string, optional): Field of study
+- `startYear`, `startMonth`, `endYear`, `endMonth` (optional)
+- `grade` (string, optional): GPA or grade
+- `activities` (string, optional): Activities and societies
 
-**Arguments:** None
+**`delete_linkedin_education`** - Remove education
+- `educationId` (string, required): Education ID
 
-**Returns:** Created Notion page details
+#### Certifications
+
+**`add_linkedin_certification`** - Add a certification
+- `name` (string, required): Certification name
+- `authority` (string, required): Issuing organization
+- `licenseNumber` (string, optional): License number
+- `startYear`, `startMonth`, `endYear`, `endMonth` (optional)
+- `url` (string, optional): Certificate URL
+
+**`delete_linkedin_certification`** - Remove a certification
+- `certificationId` (string, required): Certification ID
+
+#### Publications
+
+**`add_linkedin_publication`** - Add a publication
+- `name` (string, required): Publication name
+- `publisher` (string, optional): Publisher name
+- `year`, `month`, `day` (optional): Publication date
+- `description` (string, optional): Description
+- `url` (string, optional): Publication URL
+
+**`delete_linkedin_publication`** - Remove a publication
+- `publicationId` (string, required): Publication ID
+
+#### Languages
+
+**`add_linkedin_language`** - Add a language
+- `name` (string, required): Language name
+- `proficiency` (string, optional): ELEMENTARY, LIMITED_WORKING, PROFESSIONAL_WORKING, FULL_PROFESSIONAL, NATIVE_OR_BILINGUAL
+
+**`delete_linkedin_language`** - Remove a language
+- `languageId` (string, required): Language ID
+
+For detailed examples and usage patterns, see [PROFILE_MANAGEMENT.md](PROFILE_MANAGEMENT.md).
 
 ## 🧪 Development
 
@@ -240,8 +266,8 @@ Save the user's LinkedIn profile to Notion.
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/linkedin-mcp-server.git
-cd linkedin-mcp-server
+git clone https://github.com/pegasusheavy/linkedin-mcp.git
+cd linkedin-mcp
 
 # Install dependencies
 pnpm install
@@ -282,26 +308,29 @@ pnpm run dev
 
 ## 📊 Test Coverage
 
-This project maintains 90%+ test coverage across all modules:
+This project maintains 99%+ test coverage:
+
+- **Lines**: 99%+
+- **Functions**: 100%
+- **Branches**: 80%+
+- **Statements**: 99%+
+- **Total Tests**: 45
 
 ```bash
 pnpm test:coverage
 ```
-
-Coverage reports are generated in the `coverage/` directory.
 
 ## 🏗️ Architecture
 
 ```
 src/
 ├── index.ts              # Entry point and CLI
-├── server.ts             # MCP server implementation
+├── server.ts             # MCP server implementation (18 tools)
 ├── config.ts             # Configuration management
 ├── logger.ts             # Logging utilities
 ├── types.ts              # TypeScript type definitions
-├── linkedin-client.ts    # LinkedIn API client
-├── notion-client.ts      # Notion API client
-└── **/*.test.ts          # Unit tests
+├── linkedin-client.ts    # LinkedIn API client (all methods)
+└── **/*.test.ts          # Unit tests (45 tests)
 ```
 
 ## 🤝 Contributing
@@ -323,11 +352,9 @@ Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduc
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
+**Copyright (c) 2024 Pegasus Heavy Industries**
+
 ## 🔒 Security
-
-### Reporting Security Issues
-
-Please report security vulnerabilities to [security@example.com](mailto:security@example.com). Do not open public issues for security vulnerabilities.
 
 ### Best Practices
 
@@ -335,17 +362,13 @@ Please report security vulnerabilities to [security@example.com](mailto:security
 - Use environment variables for all sensitive configuration
 - Rotate access tokens regularly
 - Follow the principle of least privilege for API scopes
+- Review the [Security Policy](SECURITY.md) for reporting vulnerabilities
 
 ## 📖 API Documentation
 
 ### LinkedIn API Rate Limits
 
-LinkedIn imposes rate limits on API calls:
-- Profile API: 100 calls per day
-- Posts API: 100 calls per day
-- Connections API: 500 calls per day
-
-The server handles rate limiting gracefully and provides informative error messages.
+LinkedIn imposes rate limits on API calls. The server handles rate limiting gracefully and provides informative error messages.
 
 ### Error Handling
 
@@ -363,80 +386,93 @@ All tools return errors in a consistent format:
 
 ## 🌟 Examples
 
-### Example 1: Sync LinkedIn Profile to Notion
+### Example 1: Building Your Profile
 
 ```typescript
-// Get LinkedIn profile
-const profile = await client.callTool({
-  name: 'get_linkedin_profile',
-  arguments: {},
+// Add education
+await client.callTool({
+  name: 'add_linkedin_education',
+  arguments: {
+    schoolName: 'Stanford University',
+    degree: 'Master of Science',
+    fieldOfStudy: 'Computer Science',
+    startYear: 2020,
+    endYear: 2022,
+  },
 });
 
-// Save to Notion
-const notionPage = await client.callTool({
-  name: 'save_linkedin_profile_to_notion',
-  arguments: {},
+// Add current position
+await client.callTool({
+  name: 'add_linkedin_position',
+  arguments: {
+    title: 'Senior Software Engineer',
+    company: 'Pegasus Heavy Industries',
+    startYear: 2022,
+    startMonth: 6,
+    current: true,
+    description: 'Building AI-powered solutions',
+  },
 });
+
+// Add skills
+await client.callTool({ name: 'add_linkedin_skill', arguments: { name: 'TypeScript' } });
+await client.callTool({ name: 'add_linkedin_skill', arguments: { name: 'AI/ML' } });
 ```
 
-### Example 2: Create a LinkedIn Post
+### Example 2: Share a Post
 
 ```typescript
 const result = await client.callTool({
   name: 'share_linkedin_post',
   arguments: {
-    text: '🚀 Excited to share our new LinkedIn MCP server! #opensource #typescript',
+    text: '🚀 Excited to announce our new LinkedIn MCP server! Full profile management through AI agents. #opensource #typescript #ai',
   },
 });
 ```
 
-### Example 3: Search and Save to Notion
+### Example 3: Search and Analyze
 
 ```typescript
 // Search for people
 const people = await client.callTool({
   name: 'search_linkedin_people',
   arguments: {
-    keywords: 'software engineer typescript',
+    keywords: 'software engineer typescript AI',
     limit: 20,
   },
 });
 
-// Save each to Notion
-for (const person of people) {
-  await client.callTool({
-    name: 'create_notion_page',
-    arguments: {
-      title: `${person.firstName} ${person.lastName}`,
-      linkedInId: person.id,
-      tags: ['LinkedIn Search', 'Software Engineer'],
-    },
-  });
-}
+// Get your posts analytics
+const posts = await client.callTool({
+  name: 'get_linkedin_posts',
+  arguments: { limit: 10 },
+});
 ```
 
 ## 🙏 Acknowledgments
 
 - [Model Context Protocol SDK](https://github.com/modelcontextprotocol/sdk)
-- [LinkedIn API Documentation](https://docs.microsoft.com/en-us/linkedin/)
-- [Notion API](https://developers.notion.com/)
+- [LinkedIn API Documentation](https://learn.microsoft.com/en-us/linkedin/)
+- [Anthropic Claude](https://www.anthropic.com/)
 
 ## 📞 Support
 
-- 📧 Email: support@example.com
-- 💬 Issues: [GitHub Issues](https://github.com/yourusername/linkedin-mcp-server/issues)
-- 📚 Documentation: [Wiki](https://github.com/yourusername/linkedin-mcp-server/wiki)
+- 💬 Issues: [GitHub Issues](https://github.com/pegasusheavy/linkedin-mcp/issues)
+- 📚 Documentation: [Wiki](https://github.com/pegasusheavy/linkedin-mcp/wiki)
+- 🌐 Website: [Pegasus Heavy Industries](https://github.com/pegasusheavy)
 
 ## 🗺️ Roadmap
 
 - [ ] LinkedIn Company Pages support
 - [ ] LinkedIn Groups integration
-- [ ] Advanced search filters
+- [ ] Advanced search filters and saved searches
 - [ ] Bulk operations support
-- [ ] GraphQL API support
-- [ ] Additional database integrations (Airtable, Google Sheets)
+- [ ] Message management (InMail)
+- [ ] Recommendations management
+- [ ] Profile views analytics
 - [ ] Web dashboard for monitoring
 - [ ] Docker container support
+- [ ] Migration to `McpServer` high-level API
 
 ## 📈 Changelog
 
@@ -444,5 +480,6 @@ See [CHANGELOG.md](CHANGELOG.md) for a list of changes.
 
 ---
 
-Made with ❤️ by the community
+**Made with ❤️ by Pegasus Heavy Industries**
 
+*Empowering AI agents to manage professional networks*
