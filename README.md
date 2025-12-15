@@ -4,6 +4,8 @@
 [![npm version](https://badge.fury.io/js/@pegasusheavy%2Flinkedin-mcp.svg)](https://www.npmjs.com/package/@pegasusheavy/linkedin-mcp)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+> 📚 **[View Full Documentation & Installation Guides →](https://pegasusheavy.github.io/linkedin-mcp/)**
+
 A comprehensive Model Context Protocol (MCP) server for LinkedIn API integration. Manage your LinkedIn profile, posts, connections, skills, education, certifications, and more through AI agents like Claude, ChatGPT, and other LLM applications.
 
 ## 🚀 Features
