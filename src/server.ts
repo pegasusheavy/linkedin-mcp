@@ -37,6 +37,8 @@ export class LinkedInMCPServer {
 
   private setupTools(): void {
     // Social & Content Tools
+    // Note: McpServer.tool() is marked deprecated but is still the correct API to use
+    // The deprecation warning is for a different use case; this is the recommended way for our server
 
     this.server.tool(
       'get_linkedin_profile',
