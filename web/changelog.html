@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="LinkedIn MCP Server Changelog - Version history and release notes">
+    <title>Changelog | LinkedIn MCP Server</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        .linkedin-blue { color: #0a66c2; }
+        .linkedin-bg-blue { background-color: #0a66c2; }
+        .linkedin-hover:hover { background-color: #f3f6f8; }
+        .post-card {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            transition: box-shadow 0.2s;
+        }
+        .post-card:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        .nav-link {
+            color: #666;
+            transition: color 0.2s;
+        }
+        .nav-link:hover {
+            color: #0a66c2;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <!-- LinkedIn-style Header -->
+    <header class="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
+        <div class="container mx-auto px-4">
+            <nav class="flex items-center justify-between h-14">
+                <div class="flex items-center space-x-2">
+                    <i class="fab fa-linkedin text-3xl" style="color: #0a66c2;"></i>
+                    <span class="text-xl font-semibold">MCP Server</span>
+                </div>
+                <div class="flex items-center space-x-6">
+                    <a href="index.html" class="nav-link flex flex-col items-center text-xs">
+                        <i class="fas fa-home text-xl mb-1"></i>
+                        <span>Home</span>
+                    </a>
+                    <a href="changelog.html" class="nav-link flex flex-col items-center text-xs" style="color: #0a66c2;">
+                        <i class="fas fa-clock text-xl mb-1"></i>
+                        <span>Changelog</span>
+                    </a>
+                    <a href="https://github.com/pegasusheavy/linkedin-mcp" target="_blank" class="nav-link flex flex-col items-center text-xs">
+                        <i class="fab fa-github text-xl mb-1"></i>
+                        <span>GitHub</span>
+                    </a>
+                    <a href="https://www.npmjs.com/package/@pegasusheavy/linkedin-mcp" target="_blank" class="nav-link flex flex-col items-center text-xs">
+                        <i class="fab fa-npm text-xl mb-1"></i>
+                        <span>npm</span>
+                    </a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="container mx-auto px-4 py-6 max-w-5xl">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            <!-- Left Sidebar - Profile Card -->
+            <aside class="lg:col-span-3">
+                <div class="post-card p-6 text-center mb-4">
+                    <div class="w-20 h-20 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-full mx-auto mb-4 flex items-center justify-center">
+                        <i class="fas fa-clock text-4xl text-white"></i>
+                    </div>
+                    <h2 class="font-semibold text-lg mb-1">Version History</h2>
+                    <p class="text-sm text-gray-600 mb-4">Release Notes</p>
+                    <div class="border-t pt-4 text-left text-sm">
+                        <div class="flex justify-between mb-2">
+                            <span class="text-gray-600">Latest</span>
+                            <span class="font-semibold">v1.1.0</span>
+                        </div>
+                        <div class="flex justify-between mb-2">
+                            <span class="text-gray-600">Released</span>
+                            <span class="font-semibold">Dec 15, 2025</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Versions</span>
+                            <span class="font-semibold">2</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="post-card p-4">
+                    <h3 class="font-semibold mb-3 text-sm">Quick Links</h3>
+                    <div class="space-y-2 text-sm">
+                        <a href="index.html" class="block linkedin-blue hover:underline">
+                            <i class="fas fa-home mr-2"></i>Home
+                        </a>
+                        <a href="https://github.com/pegasusheavy/linkedin-mcp/releases" target="_blank" class="block linkedin-blue hover:underline">
+                            <i class="fab fa-github mr-2"></i>GitHub Releases
+                        </a>
+                        <a href="https://github.com/pegasusheavy/linkedin-mcp/blob/main/CHANGELOG.md" target="_blank" class="block linkedin-blue hover:underline">
+                            <i class="fas fa-file-alt mr-2"></i>Raw Changelog
+                        </a>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Main Feed -->
+            <main class="lg:col-span-9 space-y-4">
+                <!-- Page Title -->
+                <div class="post-card p-6">
+                    <h1 class="text-3xl font-bold mb-2">📋 Changelog</h1>
+                    <p class="text-gray-600">All notable changes to the LinkedIn MCP Server are documented here as LinkedIn posts.</p>
+                </div>
+
+                <!-- Version 1.1.0 -->
+                <article class="post-card p-6">
+                    <div class="flex items-start mb-4">
+                        <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center mr-3">
+                            <i class="fas fa-rocket text-white text-xl"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="font-semibold">Pegasus Heavy Industries</h3>
+                            <p class="text-xs text-gray-600">December 15, 2025 • <i class="fas fa-globe-americas"></i></p>
+                        </div>
+                        <div class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-semibold">
+                            v1.1.0
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <h2 class="text-xl font-bold mb-3">🚀 Major Refactor: McpServer Migration</h2>
+                        <p class="text-gray-700 mb-3">
+                            Excited to announce v1.1.0! This release brings a major architectural improvement by migrating to the modern <strong>McpServer API</strong>.
+                        </p>
+                        
+                        <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-3">
+                            <h4 class="font-semibold mb-2 text-blue-900">🔧 Changed</h4>
+                            <ul class="text-sm text-gray-700 space-y-1 ml-4 list-disc">
+                                <li><strong>Migrated from deprecated Server class</strong> to modern McpServer API</li>
+                                <li>Simplified tool registration using <code class="bg-blue-100 px-2 py-1 rounded text-xs">server.tool()</code> method</li>
+                                <li>Improved type safety with Zod schema validation</li>
+                                <li>Removed manual request handler setup</li>
+                                <li><strong>Eliminated all deprecation warnings</strong></li>
+                                <li>Reduced code complexity by ~200 lines</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-green-50 border-l-4 border-green-500 p-4 mb-3">
+                            <h4 class="font-semibold mb-2 text-green-900">✨ Improved</h4>
+                            <ul class="text-sm text-gray-700 space-y-1 ml-4 list-disc">
+                                <li><strong>Test Coverage</strong>: Expanded from 14 to 65 test cases
+                                    <ul class="ml-4 mt-1 list-circle">
+                                        <li>Added 12 tests for profile management tools</li>
+                                        <li>Added 9 validation tests for required parameters</li>
+                                        <li>Added 3 tests for default parameter handling</li>
+                                        <li>Server coverage: <strong>85.95% lines, 100% functions, 72.3% branches</strong></li>
+                                    </ul>
+                                </li>
+                                <li><strong>Code Quality</strong>: Cleaner, more maintainable codebase following MCP SDK best practices</li>
+                                <li><strong>Developer Experience</strong>: Better type inference and IDE support with Zod schemas</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-gradient-to-r from-purple-500 to-pink-500 text-white p-4 rounded-lg">
+                            <div class="grid grid-cols-3 gap-4 text-center">
+                                <div>
+                                    <div class="text-3xl font-bold">65</div>
+                                    <div class="text-sm opacity-90">Test Cases</div>
+                                    <div class="text-xs opacity-75 mt-1">↑ from 14</div>
+                                </div>
+                                <div>
+                                    <div class="text-3xl font-bold">~200</div>
+                                    <div class="text-sm opacity-90">Lines Removed</div>
+                                    <div class="text-xs opacity-75 mt-1">Simpler code</div>
+                                </div>
+                                <div>
+                                    <div class="text-3xl font-bold">100%</div>
+                                    <div class="text-sm opacity-90">Functions</div>
+                                    <div class="text-xs opacity-75 mt-1">Tested</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-4 text-sm text-gray-600 border-t pt-4">
+                        <button class="linkedin-hover px-4 py-2 rounded flex items-center gap-2">
+                            <i class="far fa-thumbs-up"></i> Like
+                        </button>
+                        <button class="linkedin-hover px-4 py-2 rounded flex items-center gap-2">
+                            <i class="far fa-comment"></i> Comment
+                        </button>
+                        <button class="linkedin-hover px-4 py-2 rounded flex items-center gap-2">
+                            <i class="fas fa-share"></i> Share
+                        </button>
+                    </div>
+                </article>
+
+                <!-- Version 1.0.0 -->
+                <article class="post-card p-6">
+                    <div class="flex items-start mb-4">
+                        <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-full flex items-center justify-center mr-3">
+                            <i class="fas fa-flag text-white text-xl"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="font-semibold">Pegasus Heavy Industries</h3>
+                            <p class="text-xs text-gray-600">December 15, 2025 • <i class="fas fa-globe-americas"></i></p>
+                        </div>
+                        <div class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-semibold">
+                            v1.0.0
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <h2 class="text-xl font-bold mb-3">🎉 Initial Release</h2>
+                        <p class="text-gray-700 mb-3">
+                            Thrilled to announce the <strong>initial release</strong> of the LinkedIn MCP Server! A comprehensive Model Context Protocol server for LinkedIn API integration with full profile management capabilities.
+                        </p>
+                        
+                        <div class="mb-4">
+                            <h4 class="font-semibold mb-2 text-lg linkedin-blue">✨ Features</h4>
+                            
+                            <div class="bg-gray-50 p-4 rounded-lg mb-3">
+                                <h5 class="font-semibold mb-2">Social & Content Tools (5 tools)</h5>
+                                <div class="grid md:grid-cols-2 gap-2 text-sm">
+                                    <div><code class="text-blue-600 text-xs">get_linkedin_profile</code> - View profile</div>
+                                    <div><code class="text-blue-600 text-xs">get_linkedin_posts</code> - Retrieve posts</div>
+                                    <div><code class="text-blue-600 text-xs">share_linkedin_post</code> - Share content</div>
+                                    <div><code class="text-blue-600 text-xs">get_linkedin_connections</code> - View connections</div>
+                                    <div><code class="text-blue-600 text-xs">search_linkedin_people</code> - Search people</div>
+                                </div>
+                            </div>
+
+                            <div class="bg-gray-50 p-4 rounded-lg mb-3">
+                                <h5 class="font-semibold mb-2">Profile Management Tools (13 tools)</h5>
+                                <div class="grid md:grid-cols-3 gap-3 text-xs">
+                                    <div>
+                                        <strong>Skills:</strong>
+                                        <div class="ml-2 mt-1">
+                                            <div>✅ add_linkedin_skill</div>
+                                            <div>❌ delete_linkedin_skill</div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <strong>Experience:</strong>
+                                        <div class="ml-2 mt-1">
+                                            <div>✅ add_linkedin_position</div>
+                                            <div>📝 update_linkedin_position</div>
+                                            <div>❌ delete_linkedin_position</div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <strong>Education:</strong>
+                                        <div class="ml-2 mt-1">
+                                            <div>✅ add_linkedin_education</div>
+                                            <div>❌ delete_linkedin_education</div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <strong>Certifications:</strong>
+                                        <div class="ml-2 mt-1">
+                                            <div>✅ add_linkedin_certification</div>
+                                            <div>❌ delete_linkedin_certification</div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <strong>Publications:</strong>
+                                        <div class="ml-2 mt-1">
+                                            <div>✅ add_linkedin_publication</div>
+                                            <div>❌ delete_linkedin_publication</div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <strong>Languages:</strong>
+                                        <div class="ml-2 mt-1">
+                                            <div>✅ add_linkedin_language</div>
+                                            <div>❌ delete_linkedin_language</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-3">
+                            <h4 class="font-semibold mb-2 text-blue-900">🔧 Technical Features</h4>
+                            <div class="grid md:grid-cols-2 gap-3 text-sm text-gray-700">
+                                <div>
+                                    <strong>Core Implementation:</strong>
+                                    <ul class="ml-4 mt-1 list-disc">
+                                        <li>Full TypeScript with strict mode</li>
+                                        <li>Zod schema validation</li>
+                                        <li>Modern async/await patterns</li>
+                                        <li>Environment-based config</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <strong>Testing & Quality:</strong>
+                                    <ul class="ml-4 mt-1 list-disc">
+                                        <li>45 unit tests</li>
+                                        <li>99%+ line coverage</li>
+                                        <li>100% function coverage</li>
+                                        <li>CI/CD with GitHub Actions</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-gradient-to-r from-blue-500 to-cyan-500 text-white p-4 rounded-lg mb-3">
+                            <div class="grid grid-cols-4 gap-4 text-center">
+                                <div>
+                                    <div class="text-3xl font-bold">18</div>
+                                    <div class="text-sm opacity-90">MCP Tools</div>
+                                </div>
+                                <div>
+                                    <div class="text-3xl font-bold">45</div>
+                                    <div class="text-sm opacity-90">Tests</div>
+                                </div>
+                                <div>
+                                    <div class="text-3xl font-bold">99%+</div>
+                                    <div class="text-sm opacity-90">Coverage</div>
+                                </div>
+                                <div>
+                                    <div class="text-3xl font-bold">6.7k</div>
+                                    <div class="text-sm opacity-90">Lines of Code</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-yellow-50 border-l-4 border-yellow-500 p-4 mb-3">
+                            <h4 class="font-semibold mb-2 text-yellow-900">🐛 Known Limitations</h4>
+                            <ul class="text-sm text-gray-700 ml-4 list-disc space-y-1">
+                                <li>Headline and summary cannot be edited via LinkedIn API (platform limitation)</li>
+                                <li>Profile picture updates not supported by LinkedIn API</li>
+                                <li>Rate limits imposed by LinkedIn on all endpoints</li>
+                                <li>Profile Edit API access requires LinkedIn approval</li>
+                            </ul>
+                        </div>
+
+                        <div class="text-sm text-gray-600">
+                            <p class="mb-2"><strong>Available on npm:</strong> <code class="bg-gray-200 px-2 py-1 rounded">@pegasusheavy/linkedin-mcp</code></p>
+                            <p class="mb-2"><strong>License:</strong> MIT</p>
+                            <p><strong>Node.js:</strong> >=18.0.0</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-4 text-sm text-gray-600 border-t pt-4">
+                        <button class="linkedin-hover px-4 py-2 rounded flex items-center gap-2">
+                            <i class="far fa-thumbs-up"></i> Like
+                        </button>
+                        <button class="linkedin-hover px-4 py-2 rounded flex items-center gap-2">
+                            <i class="far fa-comment"></i> Comment
+                        </button>
+                        <button class="linkedin-hover px-4 py-2 rounded flex items-center gap-2">
+                            <i class="fas fa-share"></i> Share
+                        </button>
+                    </div>
+                </article>
+
+                <!-- End of Feed -->
+                <div class="text-center py-8 text-gray-500">
+                    <i class="fas fa-check-circle text-2xl mb-2"></i>
+                    <p>You've reached the beginning of the changelog</p>
+                </div>
+            </main>
+        </div>
+    </div>
+</body>
+</html>
+
