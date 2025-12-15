@@ -1,0 +1,25 @@
+# Source files
+src/
+*.test.ts
+
+# Configuration
+.env
+.env.*
+tsconfig.json
+vitest.config.ts
+eslint.config.js
+
+# Development
+.github/
+.vscode/
+coverage/
+node_modules/
+
+# Documentation (keep README)
+CONTRIBUTING.md
+CHANGELOG.md
+
+# Git
+.git/
+.gitignore
+
