@@ -3,7 +3,7 @@ import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js'
 import { z } from 'zod';
 import { LinkedInClient } from './linkedin-client.js';
 import { Logger } from './logger.js';
-import { ServerConfig, LinkedInPosition } from './types.js';
+import { ServerConfig, LinkedInPosition, LinkedInLanguage, LinkedInEducation, LinkedInCertification, LinkedInPublication } from './types.js';
 
 // Tool result type to avoid deep type inference issues
 type ToolResult = {
@@ -320,7 +320,7 @@ export class LinkedInMCPServer {
           if (!schoolName) {
             throw new Error('School name is required');
           }
-          const education = {
+          const education: LinkedInEducation = {
             schoolName,
             degree,
             fieldOfStudy,
@@ -384,7 +384,7 @@ export class LinkedInMCPServer {
           if (!name || !authority) {
             throw new Error('Certification name and authority are required');
           }
-          const certification = {
+          const certification: LinkedInCertification = {
             name,
             authority,
             licenseNumber,
@@ -446,7 +446,7 @@ export class LinkedInMCPServer {
           if (!name) {
             throw new Error('Publication name is required');
           }
-          const publication = {
+          const publication: LinkedInPublication = {
             name,
             publisher,
             date: year ? { year, month, day } : undefined,
@@ -504,7 +504,7 @@ export class LinkedInMCPServer {
           if (!name) {
             throw new Error('Language name is required');
           }
-          const language = { name, proficiency };
+          const language: LinkedInLanguage = { name, proficiency };
           const result = await this.linkedInClient.addLanguage(language);
           return {
             content: [{ type: 'text', text: `Successfully added language: ${name} (ID: ${result.id})` }],
