@@ -68,7 +68,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Improved
 - **Test Coverage**: Expanded test suite from 14 to 65 test cases
   - Added 12 tests for profile management tools
-  - Added 9 validation tests for required parameters  
+  - Added 9 validation tests for required parameters
   - Added 3 tests for default parameter handling
   - Server coverage: 85.95% lines, 100% functions, 72.3% branches
 - **Code Quality**: Cleaner, more maintainable codebase following MCP SDK best practices

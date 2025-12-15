@@ -3,7 +3,7 @@ import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js'
 import { z } from 'zod';
 import { LinkedInClient } from './linkedin-client.js';
 import { Logger } from './logger.js';
-import { ServerConfig } from './types.js';
+import { ServerConfig, LinkedInPosition } from './types.js';
 
 export class LinkedInMCPServer {
   private server: McpServer;
@@ -214,7 +214,7 @@ export class LinkedInMCPServer {
           if (!title || !company || !startYear) {
             throw new Error('Title, company, and start year are required');
           }
-          const position = {
+          const position: LinkedInPosition = {
             title,
             company,
             description,
