@@ -2,8 +2,6 @@ import * as http from 'http';
 import * as https from 'https';
 import * as url from 'url';
 import * as crypto from 'crypto';
-import * as fs from 'fs';
-import * as path from 'path';
 import { Logger } from './logger.js';
 
 export interface OAuthConfig {
@@ -30,33 +28,29 @@ const SCOPES = [
 export class OAuthManager {
   private logger: Logger;
   private config: OAuthConfig;
-  private tokenCachePath: string;
+  private tokenCache: OAuthTokens | null = null;
   private server?: http.Server;
 
   constructor(config: OAuthConfig, logger: Logger = new Logger()) {
     this.logger = logger;
     this.config = config;
-    // Store tokens in user's home directory for persistence
-    const homeDir = process.env.HOME || process.env.USERPROFILE || '.';
-    this.tokenCachePath = path.join(homeDir, '.linkedin-mcp-tokens.json');
   }
 
   /**
    * Get a valid access token, triggering OAuth flow if needed
    */
   async getAccessToken(): Promise<string> {
-    // Try to load cached token
-    const cachedTokens = this.loadCachedTokens();
-    if (cachedTokens && this.isTokenValid(cachedTokens)) {
-      this.logger.info('Using cached access token');
-      return cachedTokens.accessToken;
+    // Try to use cached token
+    if (this.tokenCache && this.isTokenValid(this.tokenCache)) {
+      this.logger.debug('Using in-memory cached access token');
+      return this.tokenCache.accessToken;
     }
 
     // If we have a refresh token, try to refresh
-    if (cachedTokens?.refreshToken) {
+    if (this.tokenCache?.refreshToken) {
       try {
         this.logger.info('Attempting to refresh access token');
-        const newTokens = await this.refreshAccessToken(cachedTokens.refreshToken);
+        const newTokens = await this.refreshAccessToken(this.tokenCache.refreshToken);
         return newTokens.accessToken;
       } catch (error) {
         this.logger.warn('Failed to refresh token, will start OAuth flow', error);
@@ -70,32 +64,11 @@ export class OAuthManager {
   }
 
   /**
-   * Load cached tokens from disk
-   */
-  private loadCachedTokens(): OAuthTokens | null {
-    try {
-      if (fs.existsSync(this.tokenCachePath)) {
-        const data = fs.readFileSync(this.tokenCachePath, 'utf-8');
-        return JSON.parse(data) as OAuthTokens;
-      }
-    } catch (error) {
-      this.logger.debug('Failed to load cached tokens', error);
-    }
-    return null;
-  }
-
-  /**
-   * Save tokens to disk
+   * Save tokens to memory
    */
   private saveCachedTokens(tokens: OAuthTokens): void {
-    try {
-      fs.writeFileSync(this.tokenCachePath, JSON.stringify(tokens, null, 2), 'utf-8');
-      // Set restrictive permissions (owner read/write only)
-      fs.chmodSync(this.tokenCachePath, 0o600);
-      this.logger.debug('Cached tokens saved');
-    } catch (error) {
-      this.logger.error('Failed to save cached tokens', error);
-    }
+    this.tokenCache = tokens;
+    this.logger.debug('Tokens cached in memory');
   }
 
   /**
@@ -456,14 +429,8 @@ export class OAuthManager {
    * Clear cached tokens (for logout/reset)
    */
   clearTokens(): void {
-    try {
-      if (fs.existsSync(this.tokenCachePath)) {
-        fs.unlinkSync(this.tokenCachePath);
-        this.logger.info('Cached tokens cleared');
-      }
-    } catch (error) {
-      this.logger.error('Failed to clear cached tokens', error);
-    }
+    this.tokenCache = null;
+    this.logger.info('In-memory tokens cleared');
   }
 }
 

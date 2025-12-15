@@ -124,9 +124,9 @@ In `.cursor/mcp.json`:
 1. First time the server starts, it detects no access token
 2. Automatically opens your browser to LinkedIn's authorization page
 3. You authorize the application once
-4. Token is cached securely at `~/.linkedin-mcp-tokens.json`
-5. Subsequent runs use the cached token automatically
-6. Expired tokens are refreshed automatically
+4. Token is cached in memory for the session
+5. Token is automatically refreshed when it expires (within the same session)
+6. Each new session requires re-authorization (secure, no disk storage)
 
 #### Option 2: Manual Access Token
 
@@ -159,17 +159,17 @@ If you already have an access token:
 ### Token Management
 
 ✨ **Automatic Features:**
-- **Token Caching** - Tokens cached at `~/.linkedin-mcp-tokens.json`
-- **Auto-Refresh** - Expired tokens automatically refreshed
-- **Secure Storage** - Token file has restrictive permissions (600)
-- **Zero Maintenance** - Authenticate once, use forever
+- **In-Memory Caching** - Tokens cached in memory during the session
+- **Auto-Refresh** - Expired tokens automatically refreshed within session
+- **Session-Based** - Authenticate once per MCP client session
+- **No Disk Storage** - Tokens never written to disk for maximum security
 
 ⚠️ **Security Notes:**
-- Tokens cached in your home directory (not the project)
-- Each system user gets their own token cache
-- Token file permissions set to 600 (owner-only access)
-- Client secrets are never exposed to the browser
-- CSRF protection with state parameter validation
+- **Memory only** - Tokens stored in process memory, never on disk
+- **Session scoped** - Each new session requires re-authorization
+- **CSRF protection** - State parameter validation prevents attacks
+- **Secure secrets** - Client secrets never exposed to browser
+- **Auto-cleanup** - Tokens cleared when server stops
 
 ## 🎯 Usage
 
