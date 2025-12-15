@@ -33,7 +33,7 @@ describe('Config', () => {
       const config = getConfig();
 
       expect(config.linkedInAccessToken).toBeUndefined();
-      expect(config.port).toBe(3000);
+      expect(config.port).toBe(50001);
       expect(config.logLevel).toBe('info');
     });
 
@@ -68,7 +68,7 @@ describe('Config', () => {
       const config = {
         linkedInClientId: 'test-client-id',
         linkedInClientSecret: 'test-client-secret',
-        linkedInRedirectUri: 'http://localhost:3000/callback',
+        linkedInRedirectUri: 'http://localhost:50001/callback',
       };
 
       expect(() => validateConfig(config)).not.toThrow();

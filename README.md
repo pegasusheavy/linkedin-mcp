@@ -69,7 +69,7 @@ The server automatically handles OAuth authentication when you don't have an acc
 
 **Step 2: Configure OAuth Settings**
 1. In your app settings, go to "Auth" tab
-2. Add `http://localhost:3000/callback` to "Authorized redirect URLs for your app"
+2. Add `http://localhost:50001/callback` to "Authorized redirect URLs for your app"
 3. Request the following **Products**:
    - Sign In with LinkedIn using OpenID Connect
    - Share on LinkedIn
@@ -152,7 +152,7 @@ If you already have an access token:
 |---------------------|----------|-------------|
 | `LINKEDIN_CLIENT_ID` | For OAuth | Your LinkedIn app client ID |
 | `LINKEDIN_CLIENT_SECRET` | For OAuth | Your LinkedIn app client secret |
-| `LINKEDIN_REDIRECT_URI` | Optional | OAuth callback URL (default: `http://localhost:3000/callback`) |
+| `LINKEDIN_REDIRECT_URI` | Optional | OAuth callback URL (default: `http://localhost:50001/callback`) |
 | `LINKEDIN_ACCESS_TOKEN` | Alternative | Use existing token instead of OAuth |
 | `LOG_LEVEL` | Optional | Logging verbosity: `debug`, `info`, `warn`, `error` (default: `info`) |
 

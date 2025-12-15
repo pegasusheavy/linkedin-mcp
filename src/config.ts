@@ -6,8 +6,8 @@ export function getConfig(): ServerConfig {
     linkedInAccessToken: process.env.LINKEDIN_ACCESS_TOKEN,
     linkedInClientId: process.env.LINKEDIN_CLIENT_ID,
     linkedInClientSecret: process.env.LINKEDIN_CLIENT_SECRET,
-    linkedInRedirectUri: process.env.LINKEDIN_REDIRECT_URI || 'http://localhost:3000/callback',
-    port: process.env.PORT ? parseInt(process.env.PORT, 10) : 3000,
+    linkedInRedirectUri: process.env.LINKEDIN_REDIRECT_URI || 'http://localhost:50001/callback',
+    port: process.env.PORT ? parseInt(process.env.PORT, 10) : 50001,
     logLevel: (process.env.LOG_LEVEL as ServerConfig['logLevel']) || 'info',
   };
 }

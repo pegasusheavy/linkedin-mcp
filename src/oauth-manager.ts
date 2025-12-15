@@ -237,7 +237,7 @@ export class OAuthManager {
   private async startOAuthFlow(): Promise<OAuthTokens> {
     const state = this.generateState();
     const authUrl = this.buildAuthorizationUrl(state);
-    const port = new URL(this.config.redirectUri).port || '3000';
+    const port = new URL(this.config.redirectUri).port || '50001';
 
     this.logger.info('━'.repeat(60));
     this.logger.info('LinkedIn OAuth Authorization Required');
