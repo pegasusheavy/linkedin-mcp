@@ -38,8 +38,16 @@
     "career",
     "professional-network"
   ],
-  "author": "",
+  "author": "Pegasus Heavy Industries",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pegasusheavy/linkedin-mcp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/pegasusheavy/linkedin-mcp/issues"
+  },
+  "homepage": "https://github.com/pegasusheavy/linkedin-mcp#readme",
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.24.3",
     "axios": "^1.13.2",
@@ -59,5 +67,14 @@
   },
   "engines": {
     "node": ">=18.0.0"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
+  "publishConfig": {
+    "access": "public"
   }
 }
