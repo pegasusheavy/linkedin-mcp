@@ -5,6 +5,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.0] - 2025-12-15
+
+### Changed
+- **Major Refactor**: Migrated from deprecated `Server` class to modern `McpServer` API
+  - Simplified tool registration using `server.tool()` method
+  - Improved type safety with Zod schema validation
+  - Removed manual request handler setup
+  - Eliminated deprecation warnings
+  - Reduced code complexity by ~200 lines
+
+### Improved
+- **Test Coverage**: Expanded test suite from 14 to 65 test cases
+  - Added 12 tests for profile management tools
+  - Added 9 validation tests for required parameters  
+  - Added 3 tests for default parameter handling
+  - Server coverage: 85.95% lines, 100% functions, 72.3% branches
+- **Code Quality**: Cleaner, more maintainable codebase following MCP SDK best practices
+- **Developer Experience**: Better type inference and IDE support with Zod schemas
+
 ## [1.0.0] - 2025-12-15
 
 ### 🎉 Initial Release

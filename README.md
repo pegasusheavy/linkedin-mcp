@@ -23,12 +23,13 @@ A comprehensive Model Context Protocol (MCP) server for LinkedIn API integration
 - **Languages**: Add language proficiency to your profile
 
 ### 💻 Developer Experience
-- Full TypeScript support with strict type checking
-- Comprehensive unit tests (99%+ coverage, 45 tests)
-- Zod schema validation for type safety
+- **Modern MCP SDK**: Built with latest `McpServer` API (v1.1.0+)
+- **Full TypeScript support** with strict type checking
+- **Comprehensive test suite**: 65 test cases, 85%+ server coverage
+- **Zod schema validation** for type safety and input validation
 - Modern async/await patterns
 - Extensive logging and error handling
-- Latest dependencies (Vitest 4, Zod 4, etc.)
+- Latest dependencies (Vitest 4, Zod 4, MCP SDK 1.24+)
 
 ## 📋 Prerequisites
 
