@@ -56,101 +56,120 @@ yarn add @pegasusheavy/linkedin-mcp
 
 ### Authentication Setup
 
-This server requires LinkedIn API access. You have two authentication options:
+This server requires LinkedIn API access. Choose your authentication method:
 
 #### Option 1: Automatic OAuth Flow (Recommended) 🚀
 
-The server automatically handles OAuth authentication when you don't have an access token:
+The server automatically handles OAuth authentication when you don't have an access token.
 
-1. **Create a LinkedIn App**
-   - Go to [LinkedIn Developers](https://www.linkedin.com/developers/)
-   - Click "Create App" and fill in the required information
-   - Note your **Client ID** and **Client Secret**
+**Step 1: Create a LinkedIn App**
+1. Go to [LinkedIn Developers](https://www.linkedin.com/developers/)
+2. Click "Create App" and fill in the required information
+3. Note your **Client ID** and **Client Secret**
 
-2. **Configure OAuth Settings**
-   - In your app settings, go to "Auth" tab
-   - Add `http://localhost:3000/callback` to "Authorized redirect URLs for your app"
-   - Request the following **Products**:
-     - Sign In with LinkedIn using OpenID Connect
-     - Share on LinkedIn
-     - Advertising API (for analytics)
+**Step 2: Configure OAuth Settings**
+1. In your app settings, go to "Auth" tab
+2. Add `http://localhost:3000/callback` to "Authorized redirect URLs for your app"
+3. Request the following **Products**:
+   - Sign In with LinkedIn using OpenID Connect
+   - Share on LinkedIn
+   - Advertising API (for analytics)
 
-3. **Set Up Environment**
-   ```bash
-   # Copy the example environment file
-   cp .env.example .env
-   
-   # Edit .env and add your LinkedIn app credentials:
-   LINKEDIN_CLIENT_ID=your_client_id_here
-   LINKEDIN_CLIENT_SECRET=your_client_secret_here
-   ```
+**Step 3: Configure Your MCP Client**
 
-4. **Start the Server**
-   ```bash
-   # The server will automatically start the OAuth flow
-   pnpm dev
-   ```
-   
-   When you start the server without an access token:
-   - The server automatically opens your browser to LinkedIn's authorization page
-   - You authorize the application
-   - The server receives the token and caches it securely in `~/.linkedin-mcp-tokens.json`
-   - Your token is automatically refreshed when it expires
-   - The MCP server starts normally
+The server receives configuration through environment variables from your MCP client:
 
-5. **Use with Your MCP Client**
-   - Configure your MCP client (Claude Desktop, Cursor, etc.)
-   - The first time it runs, you'll authenticate once via browser
-   - Subsequent runs use the cached token automatically
-   - Tokens are refreshed automatically when they expire
+**For Claude Desktop:**
+
+Edit your Claude Desktop config file:
+- **macOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`
+- **Windows**: `%APPDATA%\Claude\claude_desktop_config.json`
+- **Linux**: `~/.config/Claude/claude_desktop_config.json`
+
+```json
+{
+  "mcpServers": {
+    "linkedin": {
+      "command": "npx",
+      "args": ["-y", "@pegasusheavy/linkedin-mcp"],
+      "env": {
+        "LINKEDIN_CLIENT_ID": "your_client_id_here",
+        "LINKEDIN_CLIENT_SECRET": "your_client_secret_here"
+      }
+    }
+  }
+}
+```
+
+**For Cursor IDE:**
+
+In `.cursor/mcp.json`:
+
+```json
+{
+  "mcpServers": {
+    "linkedin": {
+      "command": "npx",
+      "args": ["-y", "@pegasusheavy/linkedin-mcp"],
+      "env": {
+        "LINKEDIN_CLIENT_ID": "your_client_id_here",
+        "LINKEDIN_CLIENT_SECRET": "your_client_secret_here"
+      }
+    }
+  }
+}
+```
+
+**What Happens:**
+1. First time the server starts, it detects no access token
+2. Automatically opens your browser to LinkedIn's authorization page
+3. You authorize the application once
+4. Token is cached securely at `~/.linkedin-mcp-tokens.json`
+5. Subsequent runs use the cached token automatically
+6. Expired tokens are refreshed automatically
 
 #### Option 2: Manual Access Token
 
-If you already have an access token or prefer manual setup:
+If you already have an access token:
 
-1. Obtain a LinkedIn access token through the [OAuth 2.0 flow](https://learn.microsoft.com/en-us/linkedin/shared/authentication/authorization-code-flow)
-2. Add it to your `.env` file:
-   ```bash
-   LINKEDIN_ACCESS_TOKEN=your_token_here
-   ```
-
-### Environment Variables
-
-Choose one of these configurations:
-
-**For Automatic OAuth (Recommended):**
-```bash
-# LinkedIn OAuth Credentials - Server handles authentication automatically
-LINKEDIN_CLIENT_ID=your_client_id
-LINKEDIN_CLIENT_SECRET=your_client_secret
-LINKEDIN_REDIRECT_URI=http://localhost:3000/callback  # optional
-
-# Optional - Server Configuration
-LOG_LEVEL=info  # debug, info, warn, error
+```json
+{
+  "mcpServers": {
+    "linkedin": {
+      "command": "npx",
+      "args": ["-y", "@pegasusheavy/linkedin-mcp"],
+      "env": {
+        "LINKEDIN_ACCESS_TOKEN": "your_token_here"
+      }
+    }
+  }
+}
 ```
 
-**For Manual Token:**
-```bash
-# LinkedIn API Authentication - Use existing token
-LINKEDIN_ACCESS_TOKEN=your_linkedin_access_token
+### Configuration Options
 
-# Optional - Server Configuration
-LOG_LEVEL=info  # debug, info, warn, error
-```
+| Environment Variable | Required | Description |
+|---------------------|----------|-------------|
+| `LINKEDIN_CLIENT_ID` | For OAuth | Your LinkedIn app client ID |
+| `LINKEDIN_CLIENT_SECRET` | For OAuth | Your LinkedIn app client secret |
+| `LINKEDIN_REDIRECT_URI` | Optional | OAuth callback URL (default: `http://localhost:3000/callback`) |
+| `LINKEDIN_ACCESS_TOKEN` | Alternative | Use existing token instead of OAuth |
+| `LOG_LEVEL` | Optional | Logging verbosity: `debug`, `info`, `warn`, `error` (default: `info`) |
 
 ### Token Management
 
 ✨ **Automatic Features:**
-- **Token Caching** - Tokens are securely cached in your home directory
-- **Auto-Refresh** - Expired tokens are automatically refreshed
+- **Token Caching** - Tokens cached at `~/.linkedin-mcp-tokens.json`
+- **Auto-Refresh** - Expired tokens automatically refreshed
 - **Secure Storage** - Token file has restrictive permissions (600)
-- **Zero Maintenance** - Authenticate once, use forever (until revoked)
+- **Zero Maintenance** - Authenticate once, use forever
 
 ⚠️ **Security Notes:**
-- **Keep credentials secure** - Never commit `.env` or token cache to version control
-- **Token location** - Cached at `~/.linkedin-mcp-tokens.json` with secure permissions
-- **One token per user** - Each person using the server gets their own cached token
-- **Manual token** - If using LINKEDIN_ACCESS_TOKEN, you handle expiration manually
+- Tokens cached in your home directory (not the project)
+- Each system user gets their own token cache
+- Token file permissions set to 600 (owner-only access)
+- Client secrets are never exposed to the browser
+- CSRF protection with state parameter validation
 
 ## 🎯 Usage
 
@@ -158,45 +177,63 @@ LOG_LEVEL=info  # debug, info, warn, error
 
 The easiest way to use this MCP server is with [Claude Desktop](https://claude.ai/download).
 
-#### Step 1: Install the Server
+#### Quick Start with OAuth (Recommended)
 
-```bash
-# No installation needed! We'll use npx to run it directly
-# Just make sure you have Node.js >= 18.0.0 installed
-```
+1. **Create a LinkedIn App** (see [Configuration](#-configuration) above)
 
-#### Step 2: Configure Claude Desktop
+2. **Configure Claude Desktop**
 
-Open your Claude Desktop configuration file:
+   Open your Claude Desktop configuration file:
+   - **macOS:** `~/Library/Application Support/Claude/claude_desktop_config.json`
+   - **Windows:** `%APPDATA%\Claude\claude_desktop_config.json`
+   - **Linux:** `~/.config/Claude/claude_desktop_config.json`
 
-**macOS:** `~/Library/Application Support/Claude/claude_desktop_config.json`  
-**Windows:** `%APPDATA%\Claude\claude_desktop_config.json`  
-**Linux:** `~/.config/Claude/claude_desktop_config.json`
+   Add this configuration with your LinkedIn app credentials:
 
-Add the LinkedIn MCP server configuration:
+   ```json
+   {
+     "mcpServers": {
+       "linkedin": {
+         "command": "npx",
+         "args": ["-y", "@pegasusheavy/linkedin-mcp"],
+         "env": {
+           "LINKEDIN_CLIENT_ID": "your_client_id_here",
+           "LINKEDIN_CLIENT_SECRET": "your_client_secret_here"
+         }
+       }
+     }
+   }
+   ```
+
+3. **Restart Claude Desktop**
+
+   Completely quit and restart Claude Desktop.
+
+4. **Authorize on First Use**
+
+   The first time Claude tries to use LinkedIn tools:
+   - A browser window will open to LinkedIn's authorization page
+   - Click "Allow" to authorize the application
+   - The token is cached and automatically refreshed
+   - All future uses work seamlessly without re-authorization
+
+#### Alternative: Use an Existing Token
+
+If you already have a LinkedIn access token:
 
 ```json
 {
   "mcpServers": {
     "linkedin": {
       "command": "npx",
-      "args": [
-        "-y",
-        "@pegasusheavy/linkedin-mcp"
-      ],
+      "args": ["-y", "@pegasusheavy/linkedin-mcp"],
       "env": {
-        "LINKEDIN_ACCESS_TOKEN": "your_linkedin_access_token_here"
+        "LINKEDIN_ACCESS_TOKEN": "your_token_here"
       }
     }
   }
 }
 ```
-
-**Important:** Replace `your_linkedin_access_token_here` with your actual LinkedIn API access token (see [Getting LinkedIn Access Token](#getting-linkedin-access-token) below).
-
-#### Step 3: Restart Claude Desktop
-
-After saving the configuration file, completely quit and restart Claude Desktop for the changes to take effect.
 
 #### Step 4: Verify Installation
 

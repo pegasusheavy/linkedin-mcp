@@ -147,7 +147,7 @@ export class OAuthManager {
     });
 
     const response = await this.makeTokenRequest(params);
-    
+
     const tokens: OAuthTokens = {
       accessToken: response.access_token,
       expiresIn: response.expires_in,
@@ -171,7 +171,7 @@ export class OAuthManager {
     });
 
     const response = await this.makeTokenRequest(params);
-    
+
     const tokens: OAuthTokens = {
       accessToken: response.access_token,
       expiresIn: response.expires_in,
@@ -189,7 +189,7 @@ export class OAuthManager {
   private makeTokenRequest(params: URLSearchParams): Promise<any> {
     return new Promise((resolve, reject) => {
       const postData = params.toString();
-      
+
       const options: https.RequestOptions = {
         hostname: 'www.linkedin.com',
         path: '/oauth/v2/accessToken',
@@ -210,7 +210,7 @@ export class OAuthManager {
         res.on('end', () => {
           try {
             const response = JSON.parse(data);
-            
+
             if (response.error) {
               reject(new Error(`LinkedIn API Error: ${response.error_description || response.error}`));
             } else {
@@ -264,7 +264,7 @@ export class OAuthManager {
     return new Promise((resolve, reject) => {
       this.server = http.createServer(async (req, res) => {
         const parsedUrl = url.parse(req.url || '', true);
-        
+
         if (parsedUrl.pathname === '/callback' || parsedUrl.pathname === new URL(this.config.redirectUri).pathname) {
           const { code, state: returnedState, error, error_description } = parsedUrl.query;
 
@@ -290,17 +290,17 @@ export class OAuthManager {
             try {
               this.logger.info('Authorization code received, exchanging for access token...');
               const tokens = await this.exchangeCodeForToken(code);
-              
+
               this.sendSuccessPage(res);
               this.stopServer();
-              
+
               this.logger.info('━'.repeat(60));
               this.logger.info('✓ OAuth Authorization Successful!');
               this.logger.info('━'.repeat(60));
               this.logger.info('Access token obtained and cached.');
               this.logger.info('Starting LinkedIn MCP Server...');
               this.logger.info('');
-              
+
               resolve(tokens);
             } catch (error) {
               const errorMsg = error instanceof Error ? error.message : 'Unknown error';
@@ -340,15 +340,15 @@ export class OAuthManager {
         <head>
           <title>Authorization Successful</title>
           <style>
-            body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; 
-                   display: flex; align-items: center; justify-content: center; height: 100vh; 
+            body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+                   display: flex; align-items: center; justify-content: center; height: 100vh;
                    margin: 0; background: linear-gradient(135deg, #0077B5 0%, #00669C 100%); }
-            .container { background: white; padding: 60px; border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); 
+            .container { background: white; padding: 60px; border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.3);
                         text-align: center; max-width: 500px; }
             .icon { font-size: 72px; margin-bottom: 20px; }
             h1 { color: #2c3e50; margin: 0 0 16px 0; font-size: 32px; }
             p { color: #7f8c8d; font-size: 18px; line-height: 1.6; margin: 0; }
-            .note { margin-top: 30px; padding: 20px; background: #f8f9fa; border-radius: 8px; 
+            .note { margin-top: 30px; padding: 20px; background: #f8f9fa; border-radius: 8px;
                    font-size: 14px; color: #6c757d; }
           </style>
         </head>
@@ -378,15 +378,15 @@ export class OAuthManager {
         <head>
           <title>${title}</title>
           <style>
-            body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; 
-                   display: flex; align-items: center; justify-content: center; height: 100vh; 
+            body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+                   display: flex; align-items: center; justify-content: center; height: 100vh;
                    margin: 0; background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); }
-            .container { background: white; padding: 60px; border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); 
+            .container { background: white; padding: 60px; border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.3);
                         text-align: center; max-width: 500px; }
             .icon { font-size: 72px; margin-bottom: 20px; }
             h1 { color: #2c3e50; margin: 0 0 16px 0; font-size: 32px; }
             p { color: #7f8c8d; font-size: 18px; line-height: 1.6; margin: 0; }
-            .note { margin-top: 30px; padding: 20px; background: #fff3cd; border-radius: 8px; 
+            .note { margin-top: 30px; padding: 20px; background: #fff3cd; border-radius: 8px;
                    font-size: 14px; color: #856404; border: 1px solid #ffeeba; }
           </style>
         </head>
@@ -416,13 +416,13 @@ export class OAuthManager {
         <head>
           <title>Waiting for Authorization</title>
           <style>
-            body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; 
-                   display: flex; align-items: center; justify-content: center; height: 100vh; 
+            body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+                   display: flex; align-items: center; justify-content: center; height: 100vh;
                    margin: 0; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
-            .container { background: white; padding: 60px; border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); 
+            .container { background: white; padding: 60px; border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.3);
                         text-align: center; max-width: 500px; }
-            .spinner { border: 4px solid #f3f3f3; border-top: 4px solid #0077B5; 
-                      border-radius: 50%; width: 60px; height: 60px; 
+            .spinner { border: 4px solid #f3f3f3; border-top: 4px solid #0077B5;
+                      border-radius: 50%; width: 60px; height: 60px;
                       animation: spin 1s linear infinite; margin: 0 auto 30px; }
             @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
             h1 { color: #2c3e50; margin: 0 0 16px 0; font-size: 32px; }

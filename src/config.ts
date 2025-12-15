@@ -1,9 +1,6 @@
-import { config as dotenvConfig } from 'dotenv';
 import { ServerConfig } from './types.js';
 
-// Load environment variables
-dotenvConfig();
-
+// Get configuration from environment variables (set by MCP client)
 export function getConfig(): ServerConfig {
   return {
     linkedInAccessToken: process.env.LINKEDIN_ACCESS_TOKEN,
