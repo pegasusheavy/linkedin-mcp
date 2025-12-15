@@ -7,7 +7,7 @@
     <!-- Primary Meta Tags -->
     <title>Changelog - LinkedIn MCP Server | Version History & Release Notes</title>
     <meta name="title" content="LinkedIn MCP Server Changelog - Version History">
-    <meta name="description" content="Complete version history and release notes for LinkedIn MCP Server. Track new features, improvements, and changes across all versions. Latest: v1.1.0 with McpServer migration.">
+    <meta name="description" content="Complete version history and release notes for LinkedIn MCP Server. Track new features, improvements, and changes across all versions. Latest: v1.2.0 with integrated OAuth and memory-only token caching.">
     <meta name="keywords" content="LinkedIn MCP changelog, version history, release notes, updates, MCP server versions, LinkedIn API changes">
     <meta name="author" content="Pegasus Heavy Industries">
     <meta name="robots" content="index, follow">
@@ -16,7 +16,7 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://pegasusheavy.github.io/linkedin-mcp/changelog.html">
     <meta property="og:title" content="LinkedIn MCP Server - Changelog & Version History">
-    <meta property="og:description" content="Complete version history for LinkedIn MCP Server. Latest: v1.1.0 with modern McpServer API, 65 tests, 85%+ coverage.">
+    <meta property="og:description" content="Complete version history for LinkedIn MCP Server. Latest: v1.2.0 with integrated OAuth 2.0 and memory-only token caching for maximum security.">
     <meta property="og:image" content="https://pegasusheavy.github.io/linkedin-mcp/logo.svg">
 
     <!-- Twitter -->
@@ -110,7 +110,7 @@
                         </div>
                         <div class="flex justify-between">
                             <span class="text-gray-600">Versions</span>
-                            <span class="font-semibold">2</span>
+                            <span class="font-semibold">3</span>
                         </div>
                     </div>
                 </div>
@@ -138,6 +138,71 @@
                     <h1 class="text-3xl font-bold mb-2">📋 Changelog</h1>
                     <p class="text-gray-600">All notable changes to the LinkedIn MCP Server are documented here as LinkedIn posts.</p>
                 </div>
+
+                <!-- Version 1.2.0 -->
+                <article class="post-card p-6">
+                    <div class="flex items-start mb-4">
+                        <img src="profile.png" alt="Pegasus Heavy Industries" class="w-12 h-12 rounded-full mr-3 object-cover">
+                        <div class="flex-1">
+                            <h3 class="font-semibold">Pegasus Heavy Industries</h3>
+                            <p class="text-xs text-gray-600">December 15, 2025 • <i class="fas fa-globe-americas"></i></p>
+                        </div>
+                        <div class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold">
+                            v1.2.0
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <h2 class="text-xl font-bold mb-3">🔐 Integrated OAuth & Memory-Only Tokens</h2>
+                        <p class="text-gray-700 mb-3">
+                            Major security and UX improvements! v1.2.0 brings <strong>integrated OAuth 2.0 authentication</strong> and <strong>memory-only token caching</strong> for maximum security.
+                        </p>
+
+                        <h3 class="font-semibold text-lg mb-2 mt-4">🎯 Key Features</h3>
+                        <ul class="list-disc list-inside text-gray-700 mb-3 space-y-1">
+                            <li><strong>Integrated OAuth Flow</strong>: Browser auto-opens for LinkedIn authorization on first use</li>
+                            <li><strong>Memory-Only Tokens</strong>: Tokens cached in process memory, never written to disk</li>
+                            <li><strong>Session-Based Auth</strong>: Tokens automatically cleared when server stops</li>
+                            <li><strong>MCP Client Config</strong>: Environment variables set directly in client config files</li>
+                            <li><strong>Higher OAuth Port</strong>: Changed default from 3000 to 50001 to avoid conflicts</li>
+                        </ul>
+
+                        <h3 class="font-semibold text-lg mb-2 mt-4">🔒 Security Benefits</h3>
+                        <ul class="list-disc list-inside text-gray-700 mb-3 space-y-1">
+                            <li>No token files to manage or secure</li>
+                            <li>Tokens cleared automatically on process end</li>
+                            <li>Container-friendly - no filesystem state</li>
+                            <li>CSRF protection with state parameter validation</li>
+                            <li>Automatic token refresh within session</li>
+                        </ul>
+
+                        <h3 class="font-semibold text-lg mb-2 mt-4">🚀 Simplified Setup</h3>
+                        <div class="bg-gray-50 p-3 rounded border border-gray-200 text-sm mb-3">
+                            <p class="text-gray-700 mb-2"><strong>Before:</strong> Create .env file → Run OAuth script → Copy token</p>
+                            <p class="text-gray-700"><strong>After:</strong> Edit MCP client config → Start server → Browser opens automatically ✨</p>
+                        </div>
+
+                        <h3 class="font-semibold text-lg mb-2 mt-4">❌ Removed</h3>
+                        <ul class="list-disc list-inside text-gray-700 mb-3 space-y-1">
+                            <li>Separate <code>oauth-helper</code> script</li>
+                            <li>Disk-based token persistence</li>
+                            <li><code>.env</code> file dependency</li>
+                            <li><code>dotenv</code> package</li>
+                        </ul>
+
+                        <div class="bg-blue-50 border-l-4 border-blue-500 p-3 mt-4">
+                            <p class="text-sm text-blue-800">
+                                <strong>📝 Note:</strong> Update your LinkedIn app redirect URL from <code>localhost:3000</code> to <code>localhost:50001</code>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between pt-3 border-t border-gray-200 text-sm text-gray-600">
+                        <div class="flex space-x-4">
+                            <button class="linkedin-hover px-2 py-1 rounded"><i class="far fa-thumbs-up mr-1"></i>Security</button>
+                            <button class="linkedin-hover px-2 py-1 rounded"><i class="far fa-comment mr-1"></i>Simplicity</button>
+                            <button class="linkedin-hover px-2 py-1 rounded"><i class="fas fa-share mr-1"></i>OAuth</button>
+                        </div>
+                    </div>
+                </article>
 
                 <!-- Version 1.1.0 -->
                 <article class="post-card p-6">

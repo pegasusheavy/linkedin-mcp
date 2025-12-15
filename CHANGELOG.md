@@ -5,6 +5,56 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.0] - 2025-12-15
+
+### 🔐 Security & Authentication
+
+#### Added
+- **Integrated OAuth 2.0 Flow**: Automatic OAuth authentication directly in MCP server
+  - Browser auto-opens for LinkedIn authorization on first use
+  - HTTP callback server handles authorization code exchange
+  - Beautiful HTML pages for OAuth flow states (success, error, waiting)
+  - CSRF protection with state parameter validation
+  - Automatic token refresh when expired
+- **Memory-Only Token Caching**: Tokens cached in process memory, never written to disk
+  - Enhanced security - no token files to manage
+  - Session-based authentication - tokens cleared when server stops
+  - Container-friendly - no filesystem state
+  - Each new session requires re-authorization
+
+#### Changed
+- **Configuration Method**: Environment variables now come from MCP client config, not `.env` files
+  - Removed `dotenv` dependency
+  - Removed `.env.example` file
+  - Configuration set directly by MCP clients (Claude Desktop, Cursor, etc.)
+  - Simpler setup - just edit client config file
+- **OAuth Port**: Changed default OAuth callback port from `3000` to `50001`
+  - Avoids conflicts with common development servers
+  - Users need to update LinkedIn app redirect URL to `http://localhost:50001/callback`
+
+#### Removed
+- ❌ Separate `oauth-helper` script - OAuth now integrated into server startup
+- ❌ Disk-based token persistence - tokens now memory-only for security
+- ❌ `.env` file dependency - configuration comes from MCP client
+
+### 📚 Documentation
+- Updated README with MCP client configuration examples
+- Added detailed OAuth setup guide for Claude Desktop and Cursor IDE
+- Clarified authentication flow and token management
+- Updated security notes for memory-only token storage
+
+### 🎯 User Experience
+**Before:**
+- Create `.env` file with credentials
+- Run separate OAuth script to get token
+- Token persists in home directory file
+
+**After:**
+- Add credentials to MCP client config (Claude Desktop, Cursor, etc.)
+- First use: browser opens for authorization automatically
+- Token cached in memory for session
+- More secure, simpler setup
+
 ## [1.1.0] - 2025-12-15
 
 ### Changed
