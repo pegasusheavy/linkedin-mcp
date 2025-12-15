@@ -5,6 +5,11 @@ import { LinkedInClient } from './linkedin-client.js';
 import { Logger } from './logger.js';
 import { ServerConfig, LinkedInPosition } from './types.js';
 
+// Tool result type to avoid deep type inference issues
+type ToolResult = {
+  content: Array<{ type: 'text'; text: string }>;
+};
+
 export class LinkedInMCPServer {
   private server: McpServer;
   private linkedInClient: LinkedInClient;
@@ -44,7 +49,7 @@ export class LinkedInMCPServer {
       'get_linkedin_profile',
       'Get the authenticated user\'s LinkedIn profile information',
       {},
-      async () => {
+      async (): Promise<ToolResult> => {
         this.logger.info('Tool called: get_linkedin_profile');
         try {
           const profile = await this.linkedInClient.getProfile();
@@ -64,7 +69,7 @@ export class LinkedInMCPServer {
       {
         limit: z.number().optional().describe('Maximum number of posts to retrieve (default: 10)'),
       },
-      async ({ limit }) => {
+      async ({ limit }): Promise<ToolResult> => {
         this.logger.info('Tool called: get_linkedin_posts');
         try {
           const posts = await this.linkedInClient.getPosts(limit || 10);
@@ -84,7 +89,7 @@ export class LinkedInMCPServer {
       {
         limit: z.number().optional().describe('Maximum number of connections to retrieve (default: 50)'),
       },
-      async ({ limit }) => {
+      async ({ limit }): Promise<ToolResult> => {
         this.logger.info('Tool called: get_linkedin_connections');
         try {
           const connections = await this.linkedInClient.getConnections(limit || 50);
@@ -104,7 +109,7 @@ export class LinkedInMCPServer {
       {
         text: z.string().describe('The text content of the post'),
       },
-      async ({ text }) => {
+      async ({ text }): Promise<ToolResult> => {
         this.logger.info('Tool called: share_linkedin_post');
         try {
           if (!text) {
@@ -128,7 +133,7 @@ export class LinkedInMCPServer {
         keywords: z.string().describe('Search keywords'),
         limit: z.number().optional().describe('Maximum number of results (default: 10)'),
       },
-      async ({ keywords, limit }) => {
+      async ({ keywords, limit }): Promise<ToolResult> => {
         this.logger.info('Tool called: search_linkedin_people');
         try {
           if (!keywords) {
@@ -153,7 +158,7 @@ export class LinkedInMCPServer {
       {
         name: z.string().describe('The name of the skill to add'),
       },
-      async ({ name }) => {
+      async ({ name }): Promise<ToolResult> => {
         this.logger.info('Tool called: add_linkedin_skill');
         try {
           if (!name) {
@@ -176,7 +181,7 @@ export class LinkedInMCPServer {
       {
         skillId: z.string().describe('The ID of the skill to delete'),
       },
-      async ({ skillId }) => {
+      async ({ skillId }): Promise<ToolResult> => {
         this.logger.info('Tool called: delete_linkedin_skill');
         try {
           if (!skillId) {
@@ -208,7 +213,7 @@ export class LinkedInMCPServer {
         endMonth: z.number().optional().describe('End month (1-12)'),
         current: z.boolean().optional().describe('Is this your current position?'),
       },
-      async ({ title, company, description, startYear, startMonth, endYear, endMonth, current }) => {
+      async ({ title, company, description, startYear, startMonth, endYear, endMonth, current }): Promise<ToolResult> => {
         this.logger.info('Tool called: add_linkedin_position');
         try {
           if (!title || !company || !startYear) {
@@ -246,7 +251,7 @@ export class LinkedInMCPServer {
         endYear: z.number().optional().describe('End year'),
         endMonth: z.number().optional().describe('End month (1-12)'),
       },
-      async ({ positionId, title, company, description, startYear, startMonth, endYear, endMonth }) => {
+      async ({ positionId, title, company, description, startYear, startMonth, endYear, endMonth }): Promise<ToolResult> => {
         this.logger.info('Tool called: update_linkedin_position');
         try {
           if (!positionId) {
@@ -276,7 +281,7 @@ export class LinkedInMCPServer {
       {
         positionId: z.string().describe('The ID of the position to delete'),
       },
-      async ({ positionId }) => {
+      async ({ positionId }): Promise<ToolResult> => {
         this.logger.info('Tool called: delete_linkedin_position');
         try {
           if (!positionId) {
@@ -309,7 +314,7 @@ export class LinkedInMCPServer {
         grade: z.string().optional().describe('Grade or GPA'),
         activities: z.string().optional().describe('Activities and societies'),
       },
-      async ({ schoolName, degree, fieldOfStudy, startYear, startMonth, endYear, endMonth, grade, activities }) => {
+      async ({ schoolName, degree, fieldOfStudy, startYear, startMonth, endYear, endMonth, grade, activities }): Promise<ToolResult> => {
         this.logger.info('Tool called: add_linkedin_education');
         try {
           if (!schoolName) {
@@ -341,7 +346,7 @@ export class LinkedInMCPServer {
       {
         educationId: z.string().describe('The ID of the education entry to delete'),
       },
-      async ({ educationId }) => {
+      async ({ educationId }): Promise<ToolResult> => {
         this.logger.info('Tool called: delete_linkedin_education');
         try {
           if (!educationId) {
@@ -373,7 +378,7 @@ export class LinkedInMCPServer {
         endMonth: z.number().optional().describe('Expiration month (1-12)'),
         url: z.string().optional().describe('URL to certification'),
       },
-      async ({ name, authority, licenseNumber, startYear, startMonth, endYear, endMonth, url }) => {
+      async ({ name, authority, licenseNumber, startYear, startMonth, endYear, endMonth, url }): Promise<ToolResult> => {
         this.logger.info('Tool called: add_linkedin_certification');
         try {
           if (!name || !authority) {
@@ -404,7 +409,7 @@ export class LinkedInMCPServer {
       {
         certificationId: z.string().describe('The ID of the certification to delete'),
       },
-      async ({ certificationId }) => {
+      async ({ certificationId }): Promise<ToolResult> => {
         this.logger.info('Tool called: delete_linkedin_certification');
         try {
           if (!certificationId) {
@@ -435,7 +440,7 @@ export class LinkedInMCPServer {
         description: z.string().optional().describe('Publication description'),
         url: z.string().optional().describe('URL to publication'),
       },
-      async ({ name, publisher, year, month, day, description, url }) => {
+      async ({ name, publisher, year, month, day, description, url }): Promise<ToolResult> => {
         this.logger.info('Tool called: add_linkedin_publication');
         try {
           if (!name) {
@@ -465,7 +470,7 @@ export class LinkedInMCPServer {
       {
         publicationId: z.string().describe('The ID of the publication to delete'),
       },
-      async ({ publicationId }) => {
+      async ({ publicationId }): Promise<ToolResult> => {
         this.logger.info('Tool called: delete_linkedin_publication');
         try {
           if (!publicationId) {
@@ -493,7 +498,7 @@ export class LinkedInMCPServer {
           .optional()
           .describe('Proficiency level'),
       },
-      async ({ name, proficiency }) => {
+      async ({ name, proficiency }): Promise<ToolResult> => {
         this.logger.info('Tool called: add_linkedin_language');
         try {
           if (!name) {
@@ -517,7 +522,7 @@ export class LinkedInMCPServer {
       {
         languageId: z.string().describe('The ID of the language to delete'),
       },
-      async ({ languageId }) => {
+      async ({ languageId }): Promise<ToolResult> => {
         this.logger.info('Tool called: delete_linkedin_language');
         try {
           if (!languageId) {
