@@ -1,0 +1,52 @@
+# LLMs.txt - Machine-Readable Project Information
+# Based on the llms.txt standard for AI discoverability
+
+# LinkedIn MCP Server
+> A comprehensive Model Context Protocol server for LinkedIn API integration
+
+## Overview
+The LinkedIn MCP Server enables AI assistants to manage LinkedIn profiles through natural language. It provides 18 tools covering social features and comprehensive profile management.
+
+## Quick Start
+npm install @pegasusheavy/linkedin-mcp
+
+Configure in Claude Desktop, Cursor, Cline, or Continue:
+{
+  "mcpServers": {
+    "linkedin": {
+      "command": "npx",
+      "args": ["-y", "@pegasusheavy/linkedin-mcp"],
+      "env": {"LINKEDIN_ACCESS_TOKEN": "your_token"}
+    }
+  }
+}
+
+## Features
+- Profile Management: Skills, positions, education, certifications, publications, languages
+- Social Features: View posts, connections, search people, share content
+- Type-Safe: Full TypeScript with Zod validation
+- Well-Tested: 85%+ coverage, 65 test cases
+- Production Ready: CI/CD, modern McpServer API
+
+## Tools
+get_linkedin_profile, get_linkedin_posts, get_linkedin_connections, share_linkedin_post, search_linkedin_people, add_linkedin_skill, delete_linkedin_skill, add_linkedin_position, update_linkedin_position, delete_linkedin_position, add_linkedin_education, delete_linkedin_education, add_linkedin_certification, delete_linkedin_certification, add_linkedin_publication, delete_linkedin_publication, add_linkedin_language, delete_linkedin_language
+
+## Links
+- Repository: https://github.com/pegasusheavy/linkedin-mcp
+- Website: https://pegasusheavy.github.io/linkedin-mcp/
+- NPM: https://www.npmjs.com/package/@pegasusheavy/linkedin-mcp
+- Documentation: https://github.com/pegasusheavy/linkedin-mcp/blob/main/README.md
+- Changelog: https://pegasusheavy.github.io/linkedin-mcp/changelog.html
+
+## Technical
+- Language: TypeScript
+- Runtime: Node.js >= 18.0.0
+- MCP SDK: @modelcontextprotocol/sdk ^1.24.3
+- Testing: Vitest 4, 65 tests, 85%+ coverage
+
+## License
+MIT - Pegasus Heavy Industries
+
+## Tags
+#linkedin #mcp #ai #llm #claude #typescript #automation #api #profile-management
+

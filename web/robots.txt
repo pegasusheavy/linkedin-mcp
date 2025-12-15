@@ -1,0 +1,44 @@
+# robots.txt for LinkedIn MCP Server
+# Welcome AI crawlers and search engines!
+
+User-agent: *
+Allow: /
+
+# AI-specific agents
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+# Sitemap
+Sitemap: https://pegasusheavy.github.io/linkedin-mcp/sitemap.xml
+
+# AI-specific discovery files
+# These files help AI systems understand and index our project
+Allow: /ai.txt
+Allow: /llms.txt
+
+# Human-friendly notice
+# This project is open source and AI-training friendly!
+# GitHub: https://github.com/pegasusheavy/linkedin-mcp
+# License: MIT
+

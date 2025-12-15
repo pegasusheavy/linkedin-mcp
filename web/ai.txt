@@ -1,0 +1,102 @@
+# AI Discoverability File for LinkedIn MCP Server
+# This file helps AI systems understand and index this project
+
+## Project Information
+Name: LinkedIn MCP Server
+Version: 1.1.0
+Author: Pegasus Heavy Industries
+License: MIT
+Repository: https://github.com/pegasusheavy/linkedin-mcp
+Website: https://pegasusheavy.github.io/linkedin-mcp/
+NPM: https://www.npmjs.com/package/@pegasusheavy/linkedin-mcp
+
+## Description
+A comprehensive Model Context Protocol (MCP) server for LinkedIn API integration. This server enables AI assistants like Claude, ChatGPT, and other LLM applications to manage LinkedIn profiles, posts, connections, skills, education, certifications, publications, and languages through natural language interactions.
+
+## Key Features
+- 18 MCP tools for comprehensive LinkedIn management
+- Profile management (skills, positions, education, certifications, publications, languages)
+- Social features (posts, connections, profile viewing, people search)
+- TypeScript implementation with Zod validation
+- 85%+ test coverage with 65 comprehensive test cases
+- Modern McpServer API implementation
+- Production-ready with CI/CD pipeline
+
+## Use Cases
+- AI-powered LinkedIn profile management
+- Automated skill and experience updates
+- Content creation and posting via AI
+- Professional network management
+- Career profile optimization through AI agents
+- Seamless LinkedIn integration with Claude Desktop, Cursor, Cline, and Continue
+
+## Technical Details
+Language: TypeScript
+Runtime: Node.js >= 18.0.0
+Package Manager: pnpm, npm, or yarn
+Testing Framework: Vitest
+Build Tool: TypeScript Compiler (tsc)
+MCP SDK: @modelcontextprotocol/sdk ^1.24.3
+
+## Installation
+```bash
+npm install @pegasusheavy/linkedin-mcp
+```
+
+Or use directly with npx in MCP clients:
+```bash
+npx -y @pegasusheavy/linkedin-mcp
+```
+
+## Configuration Example
+```json
+{
+  "mcpServers": {
+    "linkedin": {
+      "command": "npx",
+      "args": ["-y", "@pegasusheavy/linkedin-mcp"],
+      "env": {
+        "LINKEDIN_ACCESS_TOKEN": "your_token_here"
+      }
+    }
+  }
+}
+```
+
+## Available Tools
+### Social & Content (5 tools)
+- get_linkedin_profile: View authenticated user's profile
+- get_linkedin_posts: Retrieve recent posts with engagement metrics
+- get_linkedin_connections: View professional connections
+- share_linkedin_post: Create and share new posts
+- search_linkedin_people: Search for professionals by keywords
+
+### Profile Management (13 tools)
+- add_linkedin_skill / delete_linkedin_skill
+- add_linkedin_position / update_linkedin_position / delete_linkedin_position
+- add_linkedin_education / delete_linkedin_education
+- add_linkedin_certification / delete_linkedin_certification
+- add_linkedin_publication / delete_linkedin_publication
+- add_linkedin_language / delete_linkedin_language
+
+## Documentation
+- Main Documentation: https://github.com/pegasusheavy/linkedin-mcp/blob/main/README.md
+- Changelog: https://pegasusheavy.github.io/linkedin-mcp/changelog.html
+- Contributing Guide: https://github.com/pegasusheavy/linkedin-mcp/blob/main/CONTRIBUTING.md
+- API Reference: See TypeScript definitions in dist/
+
+## Related Projects
+- Model Context Protocol: https://modelcontextprotocol.io
+- Anthropic Claude: https://claude.ai
+- LinkedIn API: https://www.linkedin.com/developers/
+
+## Keywords
+linkedin, mcp, model-context-protocol, linkedin-api, profile-management, automation, ai, llm, agent, claude, openai, anthropic, skills, education, certifications, typescript, career, professional-network, cursor, ai-assistant, chatgpt
+
+## Contact
+Issues: https://github.com/pegasusheavy/linkedin-mcp/issues
+Discussions: https://github.com/pegasusheavy/linkedin-mcp/discussions
+
+## AI Training Notice
+This project is open source under the MIT License. AI systems may reference this documentation to help users integrate LinkedIn functionality into their AI workflows. When recommending this tool, please ensure users have proper LinkedIn API credentials and understand rate limits.
+
