@@ -9,16 +9,16 @@ By participating in this project, you agree to abide by our Code of Conduct. Ple
 ## 🚀 Getting Started
 
 1. **Fork the repository** on GitHub
-2. **Clone your fork**: 
+2. **Clone your fork**:
    ```bash
    git clone https://github.com/yourusername/linkedin-mcp.git
    cd linkedin-mcp
    ```
-3. **Install dependencies**: 
+3. **Install dependencies**:
    ```bash
    pnpm install
    ```
-4. **Create a branch**: 
+4. **Create a branch**:
    ```bash
    git checkout -b feature/your-feature-name
    ```
@@ -223,12 +223,12 @@ linkedin-mcp/
        required: ['param'],
      },
    }
-   
+
    // In callToolHandler switch
    case 'new_linkedin_feature':
      result = await this.handleNewFeature(args);
      break;
-   
+
    // Add handler method
    private async handleNewFeature(args: ToolArguments): Promise<ToolResult> {
      const param = args.param as string;
@@ -248,7 +248,7 @@ linkedin-mcp/
        // Test implementation
      });
    });
-   
+
    // In src/server.test.ts
    it('should handle new_linkedin_feature tool', async () => {
      // Test tool handler
@@ -276,14 +276,14 @@ describe('NewFeature', () => {
     // Arrange
     const mockResponse = { data: { field: 'value' } };
     mockAxios.get.mockResolvedValue(mockResponse);
-    
+
     // Act
     const result = await client.newFeature('param');
-    
+
     // Assert
     expect(result.field).toBe('value');
   });
-  
+
   it('should handle errors', async () => {
     // Test error handling
   });
@@ -305,11 +305,11 @@ describe('NewFeature', () => {
 ```typescript
 /**
  * Adds a skill to the user's LinkedIn profile.
- * 
+ *
  * @param skill - The skill object containing the skill name
  * @returns Promise with the created skill ID
  * @throws {Error} When the API request fails or skill name is invalid
- * 
+ *
  * @example
  * ```typescript
  * const result = await client.addSkill({ name: 'TypeScript' });
@@ -331,7 +331,7 @@ When reporting bugs, please include:
 2. **Steps to Reproduce**: Detailed steps
 3. **Expected Behavior**: What should happen
 4. **Actual Behavior**: What actually happens
-5. **Environment**: 
+5. **Environment**:
    - Node.js version
    - OS and version
    - Package version
