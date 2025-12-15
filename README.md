@@ -81,7 +81,123 @@ LOG_LEVEL=info  # debug, info, warn, error
 
 ## 🎯 Usage
 
-### As a Standalone Server
+### Claude Desktop
+
+The easiest way to use this MCP server is with [Claude Desktop](https://claude.ai/download).
+
+#### Step 1: Install the Server
+
+```bash
+# No installation needed! We'll use npx to run it directly
+# Just make sure you have Node.js >= 18.0.0 installed
+```
+
+#### Step 2: Configure Claude Desktop
+
+Open your Claude Desktop configuration file:
+
+**macOS:** `~/Library/Application Support/Claude/claude_desktop_config.json`  
+**Windows:** `%APPDATA%\Claude\claude_desktop_config.json`  
+**Linux:** `~/.config/Claude/claude_desktop_config.json`
+
+Add the LinkedIn MCP server configuration:
+
+```json
+{
+  "mcpServers": {
+    "linkedin": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@pegasusheavy/linkedin-mcp"
+      ],
+      "env": {
+        "LINKEDIN_ACCESS_TOKEN": "your_linkedin_access_token_here"
+      }
+    }
+  }
+}
+```
+
+**Important:** Replace `your_linkedin_access_token_here` with your actual LinkedIn API access token (see [Getting LinkedIn Access Token](#getting-linkedin-access-token) below).
+
+#### Step 3: Restart Claude Desktop
+
+After saving the configuration file, completely quit and restart Claude Desktop for the changes to take effect.
+
+#### Step 4: Verify Installation
+
+Once Claude Desktop restarts, you should see the LinkedIn MCP server connected. You can verify by asking Claude:
+
+```
+"Can you show me my LinkedIn profile?"
+"What are my recent LinkedIn posts?"
+"Add TypeScript to my LinkedIn skills"
+```
+
+Claude will now have access to all 18 LinkedIn tools! 🎉
+
+---
+
+### Other MCP Clients
+
+#### Cursor IDE
+
+Add to your Cursor MCP settings (accessible via Cursor Settings → Features → Model Context Protocol):
+
+```json
+{
+  "mcpServers": {
+    "linkedin": {
+      "command": "npx",
+      "args": ["-y", "@pegasusheavy/linkedin-mcp"],
+      "env": {
+        "LINKEDIN_ACCESS_TOKEN": "your_linkedin_access_token_here"
+      }
+    }
+  }
+}
+```
+
+#### Cline (VS Code Extension)
+
+Add to your Cline MCP settings:
+
+```json
+{
+  "mcpServers": {
+    "linkedin": {
+      "command": "npx",
+      "args": ["-y", "@pegasusheavy/linkedin-mcp"],
+      "env": {
+        "LINKEDIN_ACCESS_TOKEN": "your_linkedin_access_token_here"
+      }
+    }
+  }
+}
+```
+
+#### Continue
+
+Add to `~/.continue/config.json`:
+
+```json
+{
+  "mcpServers": {
+    "linkedin": {
+      "command": "npx",
+      "args": ["-y", "@pegasusheavy/linkedin-mcp"],
+      "env": {
+        "LINKEDIN_ACCESS_TOKEN": "your_linkedin_access_token_here"
+      }
+    }
+  }
+}
+```
+
+---
+
+### As a Standalone Server (Advanced)
 
 ```typescript
 import { LinkedInMCPServer } from '@pegasusheavy/linkedin-mcp';
@@ -94,7 +210,7 @@ const server = new LinkedInMCPServer(config);
 await server.start();
 ```
 
-### With MCP Client
+### With MCP Client (Advanced)
 
 ```typescript
 import { Client } from '@modelcontextprotocol/sdk/client/index.js';
