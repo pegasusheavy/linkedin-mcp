@@ -1,25 +1,73 @@
-# Source files
+# Source files (we ship dist/ instead)
 src/
-*.test.ts
-
-# Configuration
-.env
-.env.*
+*.ts
+!*.d.ts
 tsconfig.json
-vitest.config.ts
-eslint.config.js
 
-# Development
+# Tests
+*.test.ts
+*.test.js
+*.spec.ts
+*.spec.js
+vitest.config.ts
+coverage/
+.vitest/
+
+# Development files
+.git/
 .github/
 .vscode/
-coverage/
-node_modules/
+.cursor/
+.idea/
+*.swp
+*.swo
+*~
 
-# Documentation (keep README)
+# CI/CD
+.github/workflows/
+codecov.yml
+
+# Documentation (except essentials)
 CONTRIBUTING.md
-CHANGELOG.md
+PROFILE_MANAGEMENT.md
+docs/
+
+# Build artifacts
+node_modules/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+.env.local
+.env.test
+.env.production
+.env.*
+
+# IDE
+*.sublime-project
+*.sublime-workspace
+.vscode/
+.idea/
+
+# Linting
+.eslintcache
+eslint.config.js
+.prettierrc
+.editorconfig
 
 # Git
-.git/
 .gitignore
+.gitattributes
 
+# GitHub Pages
+index.html
+
+# Misc
+*.tgz
+.npmrc
