@@ -6,23 +6,23 @@
       <stop offset="100%" style="stop-color:#004182;stop-opacity:1" />
     </linearGradient>
   </defs>
-  
+
   <rect width="512" height="512" fill="url(#grad1)" rx="90"/>
-  
+
   <!-- LinkedIn Symbol -->
   <g transform="translate(140, 150)">
     <!-- 'i' dot -->
     <circle cx="30" cy="25" r="22" fill="white"/>
     <!-- 'i' stem -->
     <rect x="8" y="70" width="44" height="150" fill="white" rx="8"/>
-    
+
     <!-- 'n' stem -->
     <rect x="90" y="70" width="44" height="150" fill="white" rx="8"/>
     <!-- 'n' curve and top -->
     <path d="M 112 100 Q 140 60, 180 60 L 180 220 L 224 220 L 224 100 Q 224 60, 180 60 Z" fill="white"/>
     <rect x="180" y="60" width="44" height="160" fill="white" rx="8"/>
   </g>
-  
+
   <!-- Subtle MCP text at bottom -->
   <text x="256" y="450" font-family="Arial, sans-serif" font-size="40" font-weight="bold" fill="white" text-anchor="middle" opacity="0.9">MCP</text>
 </svg>

@@ -5,7 +5,7 @@
     <!-- 'i' -->
     <circle cx="2.5" cy="2" r="1.5" fill="white"/>
     <rect x="1" y="6" width="3" height="10" fill="white" rx="0.5"/>
-    
+
     <!-- 'n' -->
     <rect x="7" y="6" width="3" height="10" fill="white" rx="0.5"/>
     <path d="M 8.5 8 Q 10 6, 12 6 L 12 16 L 15 16 L 15 10 Q 15 6, 12 6" fill="white"/>
