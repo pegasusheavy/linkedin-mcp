@@ -219,18 +219,18 @@ export class LinkedInMCPServer {
           if (!title || !company || !startYear) {
             throw new Error('Title, company, and start year are required');
           }
+          const startDate = { year: startYear } as { year: number; month?: number };
+          if (startMonth !== undefined) startDate.month = startMonth;
+
+          const endDate = endYear ? ({ year: endYear } as { year: number; month?: number }) : undefined;
+          if (endDate && endMonth !== undefined) endDate.month = endMonth;
+
           const position: LinkedInPosition = {
             title,
             company,
             description,
-            startDate: {
-              year: startYear,
-              ...(startMonth !== undefined && { month: startMonth }),
-            },
-            endDate: endYear ? {
-              year: endYear,
-              ...(endMonth !== undefined && { month: endMonth }),
-            } : undefined,
+            startDate,
+            endDate,
             current,
           };
           const result = await this.linkedInClient.addPosition(position);
@@ -326,18 +326,18 @@ export class LinkedInMCPServer {
           if (!schoolName) {
             throw new Error('School name is required');
           }
+          const startDate = startYear ? ({ year: startYear } as { year: number; month?: number }) : undefined;
+          if (startDate && startMonth !== undefined) startDate.month = startMonth;
+
+          const endDate = endYear ? ({ year: endYear } as { year: number; month?: number }) : undefined;
+          if (endDate && endMonth !== undefined) endDate.month = endMonth;
+
           const education: LinkedInEducation = {
             schoolName,
             degree,
             fieldOfStudy,
-            startDate: startYear ? {
-              year: startYear,
-              ...(startMonth !== undefined && { month: startMonth }),
-            } : undefined,
-            endDate: endYear ? {
-              year: endYear,
-              ...(endMonth !== undefined && { month: endMonth }),
-            } : undefined,
+            startDate,
+            endDate,
             grade,
             activities,
           };
@@ -396,18 +396,18 @@ export class LinkedInMCPServer {
           if (!name || !authority) {
             throw new Error('Certification name and authority are required');
           }
+          const startDate = startYear ? ({ year: startYear } as { year: number; month?: number }) : undefined;
+          if (startDate && startMonth !== undefined) startDate.month = startMonth;
+
+          const endDate = endYear ? ({ year: endYear } as { year: number; month?: number }) : undefined;
+          if (endDate && endMonth !== undefined) endDate.month = endMonth;
+
           const certification: LinkedInCertification = {
             name,
             authority,
             licenseNumber,
-            startDate: startYear ? {
-              year: startYear,
-              ...(startMonth !== undefined && { month: startMonth }),
-            } : undefined,
-            endDate: endYear ? {
-              year: endYear,
-              ...(endMonth !== undefined && { month: endMonth }),
-            } : undefined,
+            startDate,
+            endDate,
             url,
           };
           const result = await this.linkedInClient.addCertification(certification);
@@ -464,14 +464,14 @@ export class LinkedInMCPServer {
           if (!name) {
             throw new Error('Publication name is required');
           }
+          const date = year ? ({ year } as { year: number; month?: number; day?: number }) : undefined;
+          if (date && month !== undefined) date.month = month;
+          if (date && day !== undefined) date.day = day;
+
           const publication: LinkedInPublication = {
             name,
             publisher,
-            date: year ? {
-              year,
-              ...(month !== undefined && { month }),
-              ...(day !== undefined && { day }),
-            } : undefined,
+            date,
             description,
             url,
           };
