@@ -223,8 +223,14 @@ export class LinkedInMCPServer {
             title,
             company,
             description,
-            startDate: { year: startYear, month: startMonth },
-            endDate: endYear ? { year: endYear, month: endMonth } : undefined,
+            startDate: {
+              year: startYear,
+              ...(startMonth !== undefined && { month: startMonth }),
+            },
+            endDate: endYear ? {
+              year: endYear,
+              ...(endMonth !== undefined && { month: endMonth }),
+            } : undefined,
             current,
           };
           const result = await this.linkedInClient.addPosition(position);
@@ -324,8 +330,14 @@ export class LinkedInMCPServer {
             schoolName,
             degree,
             fieldOfStudy,
-            startDate: startYear ? { year: startYear, month: startMonth } : undefined,
-            endDate: endYear ? { year: endYear, month: endMonth } : undefined,
+            startDate: startYear ? {
+              year: startYear,
+              ...(startMonth !== undefined && { month: startMonth }),
+            } : undefined,
+            endDate: endYear ? {
+              year: endYear,
+              ...(endMonth !== undefined && { month: endMonth }),
+            } : undefined,
             grade,
             activities,
           };
@@ -388,8 +400,14 @@ export class LinkedInMCPServer {
             name,
             authority,
             licenseNumber,
-            startDate: startYear ? { year: startYear, month: startMonth } : undefined,
-            endDate: endYear ? { year: endYear, month: endMonth } : undefined,
+            startDate: startYear ? {
+              year: startYear,
+              ...(startMonth !== undefined && { month: startMonth }),
+            } : undefined,
+            endDate: endYear ? {
+              year: endYear,
+              ...(endMonth !== undefined && { month: endMonth }),
+            } : undefined,
             url,
           };
           const result = await this.linkedInClient.addCertification(certification);
@@ -449,7 +467,11 @@ export class LinkedInMCPServer {
           const publication: LinkedInPublication = {
             name,
             publisher,
-            date: year ? { year, month, day } : undefined,
+            date: year ? {
+              year,
+              ...(month !== undefined && { month }),
+              ...(day !== undefined && { day }),
+            } : undefined,
             description,
             url,
           };
