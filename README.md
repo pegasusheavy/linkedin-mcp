@@ -352,7 +352,7 @@ Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduc
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-**Copyright (c) 2024 Pegasus Heavy Industries**
+**Copyright (c) 2025 Pegasus Heavy Industries**
 
 ## 🔒 Security
 
