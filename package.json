@@ -49,7 +49,7 @@
   },
   "homepage": "https://github.com/pegasusheavy/linkedin-mcp#readme",
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.24.3",
+    "@modelcontextprotocol/sdk": "^1.25.1",
     "axios": "^1.13.2",
     "open": "^10.1.0",
     "zod": "^4.2.0"
