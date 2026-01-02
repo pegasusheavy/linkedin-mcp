@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0077B5"/>
+      <stop offset="100%" stop-color="#00669C"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Main rounded square background -->
+  <rect x="32" y="32" width="448" height="448" rx="80" ry="80" fill="url(#bgGrad)"/>
+
+  <!-- Inner highlight -->
+  <rect x="48" y="48" width="416" height="416" rx="68" ry="68" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="3"/>
+
+  <!-- LinkedIn "in" -->
+  <!-- i dot -->
+  <circle cx="148" cy="148" r="30" fill="#FFFFFF"/>
+
+  <!-- i stem -->
+  <rect x="118" y="200" width="60" height="168" rx="10" fill="#FFFFFF"/>
+
+  <!-- n shape -->
+  <path d="M228 200 C228 194 233 189 239 189 L278 189 C284 189 289 194 289 200 L289 228 C310 195 345 185 375 189 C430 197 456 244 456 300 L456 358 C456 364 451 369 445 369 L406 369 C400 369 395 364 395 358 L395 310 C395 274 380 254 348 254 C312 254 289 280 289 318 L289 358 C289 364 284 369 278 369 L239 369 C233 369 228 364 228 358 Z" fill="#FFFFFF"/>
+
+  <!-- MCP Network visualization -->
+  <!-- Central hub -->
+  <circle cx="348" cy="285" r="20" fill="#10B981" stroke="#FFFFFF" stroke-width="4"/>
+
+  <!-- Connection lines -->
+  <line x1="348" y1="285" x2="410" y2="230" stroke="#10B981" stroke-width="4" stroke-linecap="round"/>
+  <line x1="348" y1="285" x2="425" y2="310" stroke="#10B981" stroke-width="4" stroke-linecap="round"/>
+  <line x1="348" y1="285" x2="390" y2="365" stroke="#10B981" stroke-width="4" stroke-linecap="round"/>
+
+  <!-- Outer nodes -->
+  <circle cx="410" cy="230" r="12" fill="#FBBF24" stroke="#FFFFFF" stroke-width="3"/>
+  <circle cx="425" cy="310" r="12" fill="#FBBF24" stroke="#FFFFFF" stroke-width="3"/>
+  <circle cx="390" cy="365" r="12" fill="#FBBF24" stroke="#FFFFFF" stroke-width="3"/>
+
+  <!-- MCP badge -->
+  <rect x="345" y="405" width="120" height="48" rx="24" fill="#0F172A"/>
+  <text x="405" y="437" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="bold" fill="#F8FAFC" text-anchor="middle">MCP</text>
+</svg>

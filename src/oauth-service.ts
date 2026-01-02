@@ -31,10 +31,9 @@ export class OAuthService {
 
   // Required scopes for the MCP server
   private readonly SCOPES = [
-    'r_liteprofile',
-    'r_emailaddress',
+    'openid',
+    'profile',
     'w_member_social',
-    'r_organization_social',
   ].join(' ');
 
   constructor(config: OAuthConfig, logger: Logger = new Logger()) {

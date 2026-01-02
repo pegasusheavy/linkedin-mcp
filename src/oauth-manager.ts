@@ -19,10 +19,10 @@ export interface OAuthTokens {
 
 const AUTHORIZATION_URL = 'https://www.linkedin.com/oauth/v2/authorization';
 const SCOPES = [
-  'r_liteprofile',
-  'r_emailaddress',
+  'openid',
+  'profile',
+  'email',
   'w_member_social',
-  'r_organization_social',
 ].join(' ');
 
 export class OAuthManager {

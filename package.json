@@ -1,6 +1,6 @@
 {
   "name": "@pegasusheavy/linkedin-mcp",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "A comprehensive Model Context Protocol (MCP) server for LinkedIn API - manage profiles, posts, connections, skills, education, certifications, and more through AI agents",
   "type": "module",
   "main": "dist/index.js",
@@ -72,7 +72,9 @@
     "dist",
     "README.md",
     "LICENSE",
-    "CHANGELOG.md"
+    "CHANGELOG.md",
+    "logo.svg",
+    "logo.png"
   ],
   "publishConfig": {
     "access": "public"

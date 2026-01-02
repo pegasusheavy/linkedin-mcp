@@ -5,6 +5,34 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.3.0] - 2026-01-02
+
+### 🔐 OAuth & API Improvements
+
+#### Changed
+- **OAuth Scopes**: Updated to use modern OpenID Connect scopes for broader compatibility
+  - Now uses `openid`, `profile`, `email`, `w_member_social` scopes
+  - Removed legacy scopes (`r_liteprofile`, `r_emailaddress`, `r_organization_social`)
+  - Works with LinkedIn apps that only have "Sign In with LinkedIn using OpenID Connect" product
+- **Profile API**: Updated `getProfile()` to use OpenID Connect `/userinfo` endpoint
+  - Primary: Uses `/userinfo` endpoint (works with `openid` + `profile` scopes)
+  - Fallback: Uses legacy `/me` endpoint (for apps with `r_liteprofile` scope)
+  - Returns user's name, email, and profile picture from the working endpoint
+
+#### Added
+- **Project Logo**: Added official LinkedIn MCP Server logo
+  - `logo.svg` - Vector source file
+  - `logo.png` - 800×800 PNG
+  - `logo-512.png`, `logo-256.png`, `logo-128.png` - Additional sizes
+  - Design: LinkedIn blue gradient with "in" wordmark, network nodes, and MCP badge
+
+### 🐛 Bug Fixes
+- Fixed OAuth flow failing with "Scope not authorized" errors for apps without legacy API scopes
+- Fixed profile fetching returning 403 errors when using OpenID Connect authentication
+
+### 📦 Package
+- Added logo files to npm package distribution
+
 ## [1.2.0] - 2025-12-15
 
 ### 🔐 Security & Authentication

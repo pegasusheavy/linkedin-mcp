@@ -34,17 +34,38 @@ export class LinkedInClient {
   async getProfile(): Promise<LinkedInProfile> {
     try {
       this.logger.debug('Fetching LinkedIn profile');
-      const response = await this.client.get('/me');
-      const profile = LinkedInProfileSchema.parse({
-        id: response.data.id,
-        firstName: response.data.localizedFirstName || response.data.firstName?.localized?.en_US || '',
-        lastName: response.data.localizedLastName || response.data.lastName?.localized?.en_US || '',
-        headline: response.data.headline,
-        profilePictureUrl: response.data.profilePicture,
-        vanityName: response.data.vanityName,
-      });
-      this.logger.info('Successfully fetched LinkedIn profile');
-      return profile;
+      // Try OpenID Connect userinfo endpoint first (works with openid+profile scopes)
+      try {
+        const userinfoResponse = await axios.get('https://api.linkedin.com/v2/userinfo', {
+          headers: {
+            Authorization: this.client.defaults.headers.Authorization,
+          },
+        });
+        const profile = LinkedInProfileSchema.parse({
+          id: userinfoResponse.data.sub,
+          firstName: userinfoResponse.data.given_name || '',
+          lastName: userinfoResponse.data.family_name || '',
+          headline: userinfoResponse.data.headline || '',
+          profilePictureUrl: userinfoResponse.data.picture || '',
+          vanityName: userinfoResponse.data.vanityName || '',
+        });
+        this.logger.info('Successfully fetched LinkedIn profile via userinfo');
+        return profile;
+      } catch (userinfoError) {
+        this.logger.debug('userinfo endpoint failed, trying /me endpoint');
+        // Fall back to legacy /me endpoint (requires r_liteprofile scope)
+        const response = await this.client.get('/me');
+        const profile = LinkedInProfileSchema.parse({
+          id: response.data.id,
+          firstName: response.data.localizedFirstName || response.data.firstName?.localized?.en_US || '',
+          lastName: response.data.localizedLastName || response.data.lastName?.localized?.en_US || '',
+          headline: response.data.headline,
+          profilePictureUrl: response.data.profilePicture,
+          vanityName: response.data.vanityName,
+        });
+        this.logger.info('Successfully fetched LinkedIn profile via /me');
+        return profile;
+      }
     } catch (error) {
       this.logger.error('Error fetching LinkedIn profile', error);
       throw new Error(`Failed to fetch LinkedIn profile: ${error instanceof Error ? error.message : 'Unknown error'}`);
