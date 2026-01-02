@@ -1,8 +1,14 @@
 # LinkedIn MCP Server
 
-[![CI](https://github.com/pegasusheavy/linkedin-mcp/workflows/CI/badge.svg)](https://github.com/pegasusheavy/linkedin-mcp/actions)
-[![npm version](https://badge.fury.io/js/@pegasusheavy%2Flinkedin-mcp.svg)](https://www.npmjs.com/package/@pegasusheavy/linkedin-mcp)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+<p align="center">
+  <img src="logo.png" alt="LinkedIn MCP Server Logo" width="200" />
+</p>
+
+<p align="center">
+  <a href="https://github.com/pegasusheavy/linkedin-mcp/actions"><img src="https://github.com/pegasusheavy/linkedin-mcp/workflows/CI/badge.svg" alt="CI"></a>
+  <a href="https://www.npmjs.com/package/@pegasusheavy/linkedin-mcp"><img src="https://badge.fury.io/js/@pegasusheavy%2Flinkedin-mcp.svg" alt="npm version"></a>
+  <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT"></a>
+</p>
 
 > 📚 **[View Full Documentation & Installation Guides →](https://pegasusheavy.github.io/linkedin-mcp/)**
 
@@ -26,8 +32,9 @@ A comprehensive Model Context Protocol (MCP) server for LinkedIn API integration
 
 ### 💻 Developer Experience
 - **Modern MCP SDK**: Built with latest `McpServer` API (v1.1.0+)
+- **OpenID Connect Support**: Works with LinkedIn's modern OAuth 2.0 + OIDC authentication
 - **Full TypeScript support** with strict type checking
-- **Comprehensive test suite**: 65 test cases, 85%+ server coverage
+- **Comprehensive test suite**: 67 test cases, 85%+ server coverage
 - **Zod schema validation** for type safety and input validation
 - Modern async/await patterns
 - Extensive logging and error handling
@@ -36,7 +43,7 @@ A comprehensive Model Context Protocol (MCP) server for LinkedIn API integration
 ## 📋 Prerequisites
 
 - Node.js >= 18.0.0
-- LinkedIn API access token
+- LinkedIn Developer App (Client ID & Secret) or existing access token
 - pnpm, npm, or yarn
 
 ## 📦 Installation
@@ -70,10 +77,11 @@ The server automatically handles OAuth authentication when you don't have an acc
 **Step 2: Configure OAuth Settings**
 1. In your app settings, go to "Auth" tab
 2. Add `http://localhost:50001/callback` to "Authorized redirect URLs for your app"
-3. Request the following **Products**:
-   - Sign In with LinkedIn using OpenID Connect
-   - Share on LinkedIn
-   - Advertising API (for analytics)
+3. Request the following **Products** (in Products tab):
+   - **Sign In with LinkedIn using OpenID Connect** (required for profile access)
+   - **Share on LinkedIn** (required for posting)
+
+> **Note**: The server uses OpenID Connect scopes (`openid`, `profile`, `email`, `w_member_social`) which work with the standard "Sign In with LinkedIn" product. No special API access required!
 
 **Step 3: Configure Your MCP Client**
 
@@ -501,9 +509,11 @@ cd linkedin-mcp
 # Install dependencies
 pnpm install
 
-# Copy environment variables
-cp .env.example .env
-# Edit .env with your credentials
+# Set environment variables for testing
+export LINKEDIN_CLIENT_ID="your_client_id"
+export LINKEDIN_CLIENT_SECRET="your_client_secret"
+# Or use an existing access token
+export LINKEDIN_ACCESS_TOKEN="your_token"
 ```
 
 ### Running Tests
@@ -537,13 +547,13 @@ pnpm run dev
 
 ## 📊 Test Coverage
 
-This project maintains 99%+ test coverage:
+This project maintains high test coverage:
 
-- **Lines**: 99%+
+- **Lines**: 85%+
 - **Functions**: 100%
-- **Branches**: 80%+
-- **Statements**: 99%+
-- **Total Tests**: 45
+- **Branches**: 72%+
+- **Statements**: 85%+
+- **Total Tests**: 67
 
 ```bash
 pnpm test:coverage
@@ -558,8 +568,10 @@ src/
 ├── config.ts             # Configuration management
 ├── logger.ts             # Logging utilities
 ├── types.ts              # TypeScript type definitions
-├── linkedin-client.ts    # LinkedIn API client (all methods)
-└── **/*.test.ts          # Unit tests (45 tests)
+├── linkedin-client.ts    # LinkedIn API client (OpenID Connect + legacy support)
+├── oauth-manager.ts      # OAuth 2.0 flow management
+├── oauth-service.ts      # OAuth token exchange service
+└── *.test.ts             # Unit tests (67 tests)
 ```
 
 ## 🤝 Contributing
@@ -581,7 +593,7 @@ Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduc
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-**Copyright (c) 2025 Pegasus Heavy Industries**
+**Copyright (c) 2025-2026 Pegasus Heavy Industries**
 
 ## 🔒 Security
 
@@ -594,6 +606,19 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - Review the [Security Policy](SECURITY.md) for reporting vulnerabilities
 
 ## 📖 API Documentation
+
+### OAuth Scopes
+
+The server requests the following OpenID Connect scopes:
+
+| Scope | Purpose |
+|-------|---------|
+| `openid` | OpenID Connect authentication |
+| `profile` | Access to name and profile picture |
+| `email` | Access to email address |
+| `w_member_social` | Create, modify, and delete posts |
+
+These scopes are available with the standard **"Sign In with LinkedIn using OpenID Connect"** product - no special API access required!
 
 ### LinkedIn API Rate Limits
 
@@ -701,7 +726,8 @@ const posts = await client.callTool({
 - [ ] Profile views analytics
 - [ ] Web dashboard for monitoring
 - [ ] Docker container support
-- [ ] Migration to `McpServer` high-level API
+- [x] ~~Migration to `McpServer` high-level API~~ ✅ Completed in v1.1.0
+- [x] ~~OpenID Connect authentication support~~ ✅ Completed in v1.3.0
 
 ## 📈 Changelog
 
