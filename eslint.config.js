@@ -8,6 +8,26 @@ export default [
     files: ['src/**/*.ts'],
     languageOptions: {
       parser: tsParser,
+      globals: {
+        // Node.js globals
+        process: 'readonly',
+        console: 'readonly',
+        Buffer: 'readonly',
+        __dirname: 'readonly',
+        __filename: 'readonly',
+        module: 'readonly',
+        require: 'readonly',
+        exports: 'readonly',
+        global: 'readonly',
+        setTimeout: 'readonly',
+        clearTimeout: 'readonly',
+        setInterval: 'readonly',
+        clearInterval: 'readonly',
+        setImmediate: 'readonly',
+        clearImmediate: 'readonly',
+        URL: 'readonly',
+        URLSearchParams: 'readonly',
+      },
       parserOptions: {
         ecmaVersion: 'latest',
         sourceType: 'module',
